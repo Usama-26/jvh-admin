@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+  .sidenav-width {
+    @apply md:w-[300px] 2xl:w-[400px];
+  }
+
+  .main-margin {
+    @apply ml-0 md:ml-[300px] 2xl:ml-[400px];
+  }
+  .menu-list-item a {
+    @apply focus:outline-none;
+  }
+
+  .chat-box {
+    height: calc(100vh - 200px);
+  }
+  .conversation-box {
+    height: calc(100vh - 200px);
+  }
+  .table-height {
+    max-height: calc(100vh - 200px);
+  }
+
+  .sidenav::-webkit-scrollbar {
+    width: 10px;
+    @apply bg-white;
+  }
+  .sidenav::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 2px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+  }
+  .btn-primary {
+    @apply bg-primary py-2 px-4 rounded;
+  }
+  .btn-danger {
+    @apply bg-[#EA0000] py-2 px-4 rounded;
+  }
+  .btn-gradient {
+    background: linear-gradient(180deg, #02d1ae 26.92%, #00715e 100%);
+  }
+  .table-head-cell {
+    @apply py-3 px-2  text-xs font-medium  text-left text-gray-400 uppercase;
+  }
+  .table-body-cell {
+    @apply py-3 px-2 text-sm font-medium  whitespace-nowrap text-white;
+  }
+  .form-input {
+    @apply w-full bg-transparent text-sm py-1  text-gray-100 border-b border-gray-400 focus:border-white focus:outline-none;
+  }
+  /* h1,
+  .h1 {
+    @apply text-[28px] font-bold leading-10;
+  }
+
+  h2,
+  .h2 {
+    @apply text-xl font-medium leading-[30px];
+  }
+
+  h3,
+  .h3 {
+    @apply text-lg font-medium leading-6;
+  }
+
+  h4,
+  .h4 {
+    @apply text-lg font-medium leading-5;
+  }
+
+  h5,
+  .h5 {
+    @apply text-sm font-normal leading-4;
+  }
+
+  h6,
+  .h6 {
+    @apply text-sm font-normal leading-3;
+  } */
+}

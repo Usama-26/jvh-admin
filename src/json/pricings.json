@@ -1,0 +1,782 @@
+[
+  {
+    "sr_no": 1,
+    "email": "john@example.com",
+    "full_name": "John Doe",
+    "phone_number": "+14155552673",
+    "date": "2023-05-01",
+    "total_price": 3100,
+    "categories": {
+      "build": {
+        "name": "Platform",
+        "price": 1000
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Geolocation",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "Booking",
+          "price": 500
+        },
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Admin/Agent app",
+          "price": 100
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 2,
+    "email": "mary@example.com",
+    "full_name": "Mary Johnson",
+    "phone_number": "+4915207859264",
+    "date": "2023-05-02",
+    "total_price": 4200,
+    "categories": {
+      "build": {
+        "name": "MVP",
+        "price": 1200
+      },
+      "device_features": [
+        {
+          "name": "Bluetooth Integration",
+          "price": 200
+        },
+        {
+          "name": "Push Notifications",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AR/VR",
+          "price": 1000
+        },
+        {
+          "name": "Shopping Cart",
+          "price": 500
+        },
+        {
+          "name": "3rd Party Integration",
+          "price": 1000
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 3,
+    "email": "alex@example.com",
+    "full_name": "Alex Smith",
+    "phone_number": "+447912345678",
+    "date": "2023-05-03",
+    "total_price": 6000,
+    "categories": {
+      "build": {
+        "name": "Game",
+        "price": 2000
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Geolocation",
+          "price": 300
+        },
+        {
+          "name": "Push Notifications",
+          "price": 500
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "Booking",
+          "price": 500
+        },
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Unity Game",
+          "price": 1500
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 4,
+    "email": "emma@example.com",
+    "full_name": "Emma Davis",
+    "phone_number": "+33612345678",
+    "date": "2023-05-04",
+    "total_price": 3300,
+    "categories": {
+      "build": {
+        "name": "App",
+        "price": 1500
+      },
+      "device_features": [
+        {
+          "name": "Geolocation",
+          "price": 300
+        },
+        {
+          "name": "Bluetooth Integration",
+          "price": 200
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AR/VR",
+          "price": 1000
+        },
+        {
+          "name": "Chat",
+          "price": 300
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 5,
+    "email": "oliver@example.com",
+    "full_name": "Oliver Wilson",
+    "phone_number": "+61298765432",
+    "date": "2023-05-05",
+    "total_price": 4800,
+    "categories": {
+      "build": {
+        "name": "Platform",
+        "price": 2000
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Admin/Agent app",
+          "price": 100
+        },
+        {
+          "name": "Shopping Cart",
+          "price": 500
+        },
+        {
+          "name": "Ratings",
+          "price": 1000
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 6,
+    "email": "ava@example.com",
+    "full_name": "Ava Martinez",
+    "phone_number": "+5215567890123",
+    "date": "2023-05-06",
+    "total_price": 4600,
+    "categories": {
+      "build": {
+        "name": "MVP",
+        "price": 1200
+      },
+      "device_features": [
+        {
+          "name": "Geolocation",
+          "price": 300
+        },
+        {
+          "name": "Push Notifications",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "Booking",
+          "price": 500
+        },
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Shopping Cart",
+          "price": 500
+        },
+        {
+          "name": "3rd Party Integration",
+          "price": 800
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 7,
+    "email": "mia@example.com",
+    "full_name": "Mia Anderson",
+    "phone_number": "+442071234567",
+    "date": "2023-05-07",
+    "total_price": 4900,
+    "categories": {
+      "build": {
+        "name": "Game",
+        "price": 2500
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Geolocation",
+          "price": 300
+        },
+        {
+          "name": "Push Notifications",
+          "price": 500
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AR/VR",
+          "price": 1000
+        },
+        {
+          "name": "Chat",
+          "price": 300
+        },
+        {
+          "name": "Ratings",
+          "price": 100
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 8,
+    "email": "liam@example.com",
+    "full_name": "Liam Moore",
+    "phone_number": "+61456789012",
+    "date": "2023-05-08",
+    "total_price": 4700,
+    "categories": {
+      "build": {
+        "name": "App",
+        "price": 1800
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Geolocation",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "Booking",
+          "price": 500
+        },
+        {
+          "name": "Shopping Cart",
+          "price": 500
+        },
+        {
+          "name": "Payments",
+          "price": 1500
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 9,
+    "email": "amelia@example.com",
+    "full_name": "Amelia Rodriguez",
+    "phone_number": "+34612345678",
+    "date": "2023-05-09",
+    "total_price": 3800,
+    "categories": {
+      "build": {
+        "name": "Platform",
+        "price": 1000
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Admin/Agent app",
+          "price": 100
+        },
+        {
+          "name": "Shopping Cart",
+          "price": 500
+        },
+        {
+          "name": "Ratings",
+          "price": 1000
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 10,
+    "email": "henry@example.com",
+    "full_name": "Henry Lee",
+    "phone_number": "+85298765432",
+    "date": "2023-05-10",
+    "total_price": 3000,
+    "categories": {
+      "build": {
+        "name": "MVP",
+        "price": 1200
+      },
+      "device_features": [
+        {
+          "name": "Geolocation",
+          "price": 300
+        },
+        {
+          "name": "Bluetooth Integration",
+          "price": 200
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AR/VR",
+          "price": 1000
+        },
+        {
+          "name": "Chat",
+          "price": 300
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 11,
+    "email": "sophia@example.com",
+    "full_name": "Sophia Brown",
+    "phone_number": "+393291234567",
+    "date": "2023-05-11",
+    "total_price": 5000,
+    "categories": {
+      "build": {
+        "name": "Game",
+        "price": 2000
+      },
+      "device_features": [
+        {
+          "name": "Geolocation",
+          "price": 300
+        },
+        {
+          "name": "Bluetooth Integration",
+          "price": 200
+        },
+        {
+          "name": "Push Notifications",
+          "price": 500
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AR/VR",
+          "price": 1000
+        },
+        {
+          "name": "Unity Game",
+          "price": 1000
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 12,
+    "email": "olivia@example.com",
+    "full_name": "Olivia Wilson",
+    "phone_number": "+61298765432",
+    "date": "2023-05-12",
+    "total_price": 7100,
+    "categories": {
+      "build": {
+        "name": "App",
+        "price": 2500
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Push Notifications",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Admin/Agent app",
+          "price": 100
+        },
+        {
+          "name": "Shopping Cart",
+          "price": 500
+        },
+        {
+          "name": "Ratings",
+          "price": 2500
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 13,
+    "email": "jack@example.com",
+    "full_name": "Jack Garcia",
+    "phone_number": "+5215567890123",
+    "date": "2023-05-13",
+    "total_price": 4300,
+    "categories": {
+      "build": {
+        "name": "Platform",
+        "price": 1800
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Geolocation",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Admin/Agent app",
+          "price": 100
+        },
+        {
+          "name": "3rd Party Integration",
+          "price": 900
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 14,
+    "email": "isabella@example.com",
+    "full_name": "Isabella Lopez",
+    "phone_number": "+442071234567",
+    "date": "2023-05-14",
+    "total_price": 3200,
+    "categories": {
+      "build": {
+        "name": "MVP",
+        "price": 1200
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Push Notifications",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AR/VR",
+          "price": 1000
+        },
+        {
+          "name": "Chat",
+          "price": 300
+        },
+        {
+          "name": "Ratings",
+          "price": 200
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 15,
+    "email": "ethan@example.com",
+    "full_name": "Ethan Martinez",
+    "phone_number": "+61456789012",
+    "date": "2023-05-15",
+    "total_price": 6800,
+    "categories": {
+      "build": {
+        "name": "Game",
+        "price": 2200
+      },
+      "device_features": [
+        {
+          "name": "Geolocation",
+          "price": 300
+        },
+        {
+          "name": "Push Notifications",
+          "price": 500
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AR/VR",
+          "price": 1000
+        },
+        {
+          "name": "Chat",
+          "price": 300
+        },
+        {
+          "name": "Unity Game",
+          "price": 2000
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 16,
+    "email": "mia@example.com",
+    "full_name": "Mia Clark",
+    "phone_number": "+34612345678",
+    "date": "2023-05-16",
+    "total_price": 5700,
+    "categories": {
+      "build": {
+        "name": "App",
+        "price": 1500
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Geolocation",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "Booking",
+          "price": 500
+        },
+        {
+          "name": "Shopping Cart",
+          "price": 500
+        },
+        {
+          "name": "Payments",
+          "price": 1000
+        },
+        {
+          "name": "Ratings",
+          "price": 1000
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 17,
+    "email": "logan@example.com",
+    "full_name": "Logan Allen",
+    "phone_number": "+85298765432",
+    "date": "2023-05-17",
+    "total_price": 6300,
+    "categories": {
+      "build": {
+        "name": "Platform",
+        "price": 1000
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Bluetooth Integration",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Admin/Agent app",
+          "price": 100
+        },
+        {
+          "name": "Shopping Cart",
+          "price": 500
+        },
+        {
+          "name": "Ratings",
+          "price": 1500
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 18,
+    "email": "lucy@example.com",
+    "full_name": "Lucy Green",
+    "phone_number": "+393291234567",
+    "date": "2023-05-18",
+    "total_price": 4500,
+    "categories": {
+      "build": {
+        "name": "MVP",
+        "price": 1200
+      },
+      "device_features": [
+        {
+          "name": "Geolocation",
+          "price": 300
+        },
+        {
+          "name": "Push Notifications",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AR/VR",
+          "price": 1000
+        },
+        {
+          "name": "Chat",
+          "price": 300
+        },
+        {
+          "name": "Ratings",
+          "price": 200
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 19,
+    "email": "oliver@example.com",
+    "full_name": "Oliver Hill",
+    "phone_number": "+61298765432",
+    "date": "2023-05-19",
+    "total_price": 7200,
+    "categories": {
+      "build": {
+        "name": "App",
+        "price": 2000
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Push Notifications",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Admin/Agent app",
+          "price": 100
+        },
+        {
+          "name": "Shopping Cart",
+          "price": 500
+        },
+        {
+          "name": "Ratings",
+          "price": 2500
+        }
+      ]
+    }
+  },
+  {
+    "sr_no": 20,
+    "email": "ava@example.com",
+    "full_name": "Ava Rodriguez",
+    "phone_number": "+5215567890123",
+    "date": "2023-05-20",
+    "total_price": 5700,
+    "categories": {
+      "build": {
+        "name": "Platform",
+        "price": 1500
+      },
+      "device_features": [
+        {
+          "name": "Camera",
+          "price": 200
+        },
+        {
+          "name": "Geolocation",
+          "price": 300
+        }
+      ],
+      "functionalities": [
+        {
+          "name": "AI-ML",
+          "price": 1000
+        },
+        {
+          "name": "Admin/Agent app",
+          "price": 100
+        },
+        {
+          "name": "3rd Party Integration",
+          "price": 900
+        }
+      ]
+    }
+  }
+]

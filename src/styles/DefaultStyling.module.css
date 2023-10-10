@@ -1,0 +1,14 @@
+/* h1,
+.h1 {
+  @apply text-[28px] font-bold leading-10;
+}
+
+h2,
+.h2 {
+  @apply text-xl font-medium leading-[30px];
+}
+
+h3,
+.h3 {
+  @apply text-lg font-medium leading-6;
+} */
