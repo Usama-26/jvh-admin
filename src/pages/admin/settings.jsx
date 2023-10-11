@@ -1,29 +1,18 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useRef } from "react";
 import AppLayout from "@/layouts/AppLayout";
-import Image from "next/image";
-import { FiGlobe } from "react-icons/fi";
-import { MdEmail, MdLock, MdPhone } from "react-icons/md";
-import { RiUserFill } from "react-icons/ri";
 import { withAuth } from "@/components/Helpers/withAuth";
-import {
-  IoMdEye,
-  IoMdEyeOff,
-  IoMdLock,
-  IoIosCheckmarkCircle,
-} from "react-icons/io";
-import { CountryDropdown } from "react-country-region-selector";
 import { updateUser } from "@/redux/auth/auth.actions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { getUser } from "@/redux/auth/auth.actions";
-import { HiCamera } from "react-icons/hi2";
 import { toast } from "react-toastify";
-import { Listbox } from "@headlessui/react";
-import { BsChevronDown } from "react-icons/bs";
+
+import { useRouter } from "next/router";
+import Image from "next/image";
+import { FaCamera } from "react-icons/fa";
 
 const Settings = (props) => {
+  const router = useRouter();
   const userData = props.userData;
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -48,12 +37,6 @@ const Settings = (props) => {
   });
   const handleData = (key, value) => {
     setData({ ...data, [key]: value });
-  };
-  const styles = {
-    "input-field":
-      "w-[400px] py-3 pl-12 rounded-full bg-[#F2F2F2] border-gray-300 border outline-gray-400 placeholder:text-sm text-sm",
-    "input-field-icon__left": "w-6 h-6 absolute top-3 left-4 ",
-    "input-field-icon__right": "w-6 h-6 absolute top-3 right-4",
   };
 
   const handleButtonClick = () => {
@@ -120,232 +103,41 @@ const Settings = (props) => {
   }, [user, countries]);
   return (
     <AppLayout>
-      <div className="max-w-screen-2xl mx-auto  p-4">
-        <h1 className="font-bold text-2xl text-black mb-4">Settings</h1>
-
-        <div className="p-4">
-          <div>
-            <div className="relative inline">
-              {user?.photoUrl == "/img/placeHolder.png" ? (
-                <div className="w-36 h-36 rounded-full bg-[#d32a3d]  justify-center items-center inline-flex">
-                  <h1 className="font-bold text-6xl text-white">
-                    {user?.firstName?.charAt(0)}
-                  </h1>
-                </div>
-              ) : (
-                <img
-                  src={user?.photoUrl}
-                  width={400}
-                  height={400}
-                  alt="Profile Image"
-                  className="object-cover w-32 h-32 rounded-full inline"
-                />
-              )}
-              <span
-                onClick={handleButtonClick}
-                className={` cursor-pointer w-12 h-12 rounded-full absolute top-8 right-0 bg-black`}
-              >
-                <HiCamera className="h-8 w-8 mx-auto mt-2" color="#fff" />
-              </span>
-            </div>
-            {(userData.role === "admin" ||
-              userData?.group?.permissions?.find(
-                (permission) => permission.route === "Settings"
-              )?.update) && (
-              <button
-                className="bg-black text-white px-10 py-2 rounded-full font-medium inline ml-5"
-                onClick={(e) => {
-                  handleSubmit(e, "/img/placeHolder.png");
-                }}
-              >
-                Delete Image
-              </button>
-            )}
+      <div className="max-w-screen-2xl mx-auto text-white p-4">
+        <h1 className="text-2xl font-semibold mb-8">Profile</h1>
+        <div className="bg-[#2D2D2D] rounded-lg p-8">
+          <div className="relative inline-block mb-8">
+            <Image
+              src={"/sample-user.jpg"}
+              height={96}
+              width={96}
+              className="aspect-square object-cover rounded-full"
+              alt="Profile Picture"
+            />
+            <label
+              htmlFor="profilePhoto"
+              className="inline-block absolute right-0 bottom-0 p-1.5 rounded-full btn-gradient"
+            >
+              <FaCamera className="w-4 h-4 fill-white" />
+            </label>
             <input
               type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              style={{ display: "none" }}
+              className="hidden"
+              id="profilePhoto"
+              accept="image/*"
             />
           </div>
-          <form action="" className="w-[700px] mt-8">
-            <div className="flex gap-8 justify-between">
-              <div className="relative mb-4 ">
-                <RiUserFill className={styles["input-field-icon__left"]} />
-                <input
-                  type="text"
-                  name="fullName"
-                  value={data.firstName}
-                  id="fullName"
-                  placeholder="Enter Full Name"
-                  className={styles["input-field"]}
-                  onChange={(e) => handleData("firstName", e.target.value)}
-                />
-              </div>
-              <div className="relative mb-4 ">
-                <RiUserFill className={styles["input-field-icon__left"]} />
-                <input
-                  type="text"
-                  name="surName"
-                  id="surName"
-                  value={data.surName}
-                  placeholder="Enter Sur Name"
-                  className={styles["input-field"]}
-                  onChange={(e) => handleData("surName", e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="flex gap-8 justify-between">
-              <div className="relative mb-4 ">
-                <MdEmail className={styles["input-field-icon__left"]} />
-                <input
-                  type="text"
-                  name="email"
-                  value={data.email}
-                  id="email"
-                  placeholder="Email"
-                  className={styles["input-field"]}
-                  onChange={(e) => handleData("email", e.target.value)}
-                />
-                <span className="flex absolute top-3 right-4 items-center">
-                  <span className="text-[11px] text-green-600">Verified</span>
-                  <IoIosCheckmarkCircle className="w-5 h-5" color="green" />
-                </span>
-              </div>
-              <div className="relative mb-4 ">
-                <MdPhone className={styles["input-field-icon__left"]} />
-                <input
-                  type="text"
-                  name="phone"
-                  value={data.phoneNo}
-                  id="phone"
-                  placeholder="Phone"
-                  className={styles["input-field"]}
-                  onChange={(e) => handleData("phoneNo", e.target.value)}
-                />
-              </div>
-            </div>
-            {/* <div className="flex gap-8 justify-between">
-              <div className="relative mb-4 ">
-                <MdLock className={styles["input-field-icon__left"]} />
-                <input
-                  type={isPasswordVisible ? "text" : "password"}
-                  name="password"
-                  value={password}
-                  id="password"
-                  placeholder="Password"
-                  className={styles["input-field"]}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <button
-                  type="button"
-                  onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                >
-                  {isPasswordVisible ? (
-                    <IoMdEyeOff className="w-6 h-6 absolute top-3 right-4" />
-                  ) : (
-                    <IoMdEye className={styles["input-field-icon__right"]} />
-                  )}
-                </button>
-              </div>
-              <div className="relative mb-4 ">
-                <MdLock className={styles["input-field-icon__left"]} />
-                <input
-                  type={isPasswordVisibleConfirm ? "text" : "password"}
-                  name="password"
-                  id="password"
-                  value={confirmPassword}
-                  placeholder="Confirm Password"
-                  className={styles["input-field"]}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <button
-                  type="button"
-                  onClick={() =>
-                    setIsPasswordVisibleConfirm(!isPasswordVisibleConfirm)
-                  }
-                >
-                  {isPasswordVisibleConfirm ? (
-                    <IoMdEyeOff className="w-6 h-6 absolute top-3 right-4" />
-                  ) : (
-                    <IoMdEye className={styles["input-field-icon__right"]} />
-                  )}
-                </button>
-              </div>
-            </div> */}
-            <div className="relative mb-4 ">
-              <img
-                src={countryFlag}
-                className={styles["input-field-icon__left"]}
-                style={{ width: "1.8rem" }}
-              />
-              <Listbox
-                value={data.country}
-                onChange={(country) => {
-                  handleData("country", country.name);
-                  setCountryFlag(country.flag);
-                }}
-              >
-                <Listbox.Button
-                  className={`${styles["input-field"]} text-left inline-flex justify-between px-4`}
-                >
-                  <span>{data.country}</span>
-
-                  <BsChevronDown className="inline self-center stroke-2" />
-                </Listbox.Button>
-                <Listbox.Options
-                  className={
-                    "absolute bg-[#F2F2F2] mt-1  rounded-2xl max-w-[400px] w-full h-40 overflow-y-auto"
-                  }
-                >
-                  {countries?.data
-                    ?.sort((a, b) => a.name.common.localeCompare(b.name.common))
-                    .map((country) => (
-                      <Listbox.Option
-                        className={
-                          "px-4 my-1 py-1 cursor-pointer hover:bg-gray-300 w-full"
-                        }
-                        key={country.name.common}
-                        value={{
-                          name: country.name.common,
-                          flag: country.flags.png,
-                        }}
-                      >
-                        <img
-                          src={country.flags.png}
-                          alt="flag"
-                          className="inline"
-                          height={20}
-                          width={20}
-                        />
-                        <span className="ml-4">{country.name.common}</span>
-                      </Listbox.Option>
-                    ))}
-                </Listbox.Options>
-              </Listbox>
-              {/* <CountryDropdown
-                classes={styles["input-field"]}
-                value={
-                  data?.country?.charAt(0).toUpperCase() +
-                  data?.country?.substr(1, data?.country?.length)
-                }
-                id="countryInput"
-                onChange={(val) => handleData("country", val)}
-              /> */}
-            </div>
-          </form>
-          <div className="w-[830px]">
-            {(userData.role === "admin" ||
-              userData?.group?.permissions?.find(
-                (permission) => permission.route === "Settings"
-              )?.update) && (
-              <button
-                className="rounded-full py-2 px-10 bg-[#D32A3D] text-white font-medium float-right"
-                onClick={(e) => handleSubmit(e)}
-              >
-                Save & Update
-              </button>
-            )}
+          <ProfileForm />
+          <div className="flex justify-center mt-10 gap-4">
+            <button
+              onClick={router.back}
+              className="py-2 px-8 font-medium rounded bg-[#687182]"
+            >
+              Back
+            </button>
+            <button className="py-2 px-8 font-medium rounded btn-gradient">
+              Update & Save
+            </button>
           </div>
         </div>
       </div>
@@ -353,3 +145,33 @@ const Settings = (props) => {
   );
 };
 export default withAuth(Settings);
+
+function ProfileForm() {
+  return (
+    <form className="space-y-4">
+      <h2 className="text-lg font-semibold">Personal Details:</h2>
+      <div className="flex flex-wrap gap-4 justify-between ">
+        <div className="basis-5/12">
+          <label className="text-xs text-gray-400 block">First Name</label>
+          <input type="text" className="form-input" value={"Predrag"} />
+        </div>
+        <div className="basis-5/12">
+          <label className="text-xs text-gray-400 block">Last Name</label>
+          <input type="text" className="form-input" value="Meintjes" />
+        </div>
+        <div className="basis-5/12">
+          <label className="text-xs text-gray-400 block">Contact Number</label>
+          <input type="text" className="form-input" value="079 23 45 678" />
+        </div>
+        <div className="basis-5/12">
+          <label className="text-xs text-gray-400 block">Email</label>
+          <input
+            type="email"
+            className="form-input"
+            value="predragmeintjes@gmail.com"
+          />
+        </div>
+      </div>
+    </form>
+  );
+}

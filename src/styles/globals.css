@@ -45,6 +45,9 @@
   .btn-danger {
     @apply bg-[#EA0000] py-2 px-4 rounded;
   }
+  .btn-neutral {
+    @apply bg-[#687182] py-2 px-4 rounded;
+  }
   .btn-gradient {
     background: linear-gradient(180deg, #02d1ae 26.92%, #00715e 100%);
   }
