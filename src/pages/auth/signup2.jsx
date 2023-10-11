@@ -3,23 +3,26 @@ import Image from "next/image";
 import { MdMail, MdLock, MdPhone } from "react-icons/md";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import Link from "next/link";
+import AuthLayout from "@/layouts/AuthLayout";
 
 export default function Login() {
   return (
-    <main className="w-screen h-screen bg-background-color">
-      <div className="container mx-auto flex justify-center items-center">
-        <div>
-          <Image
-            src={"/images/jvh-logo@2x.png"}
-            width={125}
-            height={105}
-            alt="Company Logo"
-            className="mx-auto"
-          />
-          <SignupForm />
+    <AuthLayout>
+      <main className="w-screen h-screen bg-background-color">
+        <div className="container mx-auto flex justify-center items-center">
+          <div>
+            <Image
+              src={"/jvh-logo@2x.png"}
+              width={125}
+              height={105}
+              alt="Company Logo"
+              className="mx-auto"
+            />
+            <SignupForm />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </AuthLayout>
   );
 }
 function SignupForm() {

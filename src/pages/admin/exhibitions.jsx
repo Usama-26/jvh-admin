@@ -1,11 +1,6 @@
-import ApprovalsTable from "@/components/ApprovalsTable";
-import ApprovedTable from "@/components/ApprovedTable";
 import AppLayout from "@/layouts/AppLayout";
-import { Tab } from "@headlessui/react";
-import { Fragment } from "react";
 import { withAuth } from "@/components/Helpers/withAuth";
 import { AiFillCheckCircle } from "react-icons/ai";
-import { RefreshButton } from "@/components/RefreshButton";
 import { StatsCard } from "@/components/StatsCard";
 import { IoMdCalendar } from "react-icons/io";
 import { SearchBar } from "@/components/SearchBar";
@@ -14,9 +9,7 @@ import Image from "next/image";
 import { MdBlock } from "react-icons/md";
 import Link from "next/link";
 
-const tabs = ["Staff", "Clients ", "Staff Status", "Client Status"];
-const SignupApprovals = (props) => {
-  const userData = props.userData;
+function Exhibitions() {
   return (
     <AppLayout>
       <div className="max-w-screen-2xl mx-auto text-white p-4">
@@ -74,9 +67,9 @@ const SignupApprovals = (props) => {
       </div>
     </AppLayout>
   );
-};
+}
 
-export default withAuth(SignupApprovals);
+export default withAuth(Exhibitions);
 
 function ExhibitionCard() {
   return (
