@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 @layer components {
+  body {
+    @apply bg-[#171717];
+  }
   .sidenav-width {
     @apply md:w-[300px] 2xl:w-[400px];
   }

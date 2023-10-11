@@ -5,7 +5,7 @@ export default function AppLayout({ children }) {
   return (
     <div>
       <SideNav />
-      <div className="main-margin bg-[#171717] min-h-screen">
+      <div className="main-margin bg-[#171717]">
         <Header />
         {children}
       </div>
