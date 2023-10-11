@@ -11,7 +11,7 @@ const ItemEnquiries = (props) => {
   const userData = props.userData;
   return (
     <AppLayout>
-      <div className="max-w-screen-2xl mx-auto p-4">
+      <div className="max-w-screen-2xl mx-auto p-4 ">
         <div className="flex items-center justify-between text-white my-8">
           <div className="basis-3/12 flex-1">
             <h1 className="text-xl font-semibold">Item Enquiries</h1>
@@ -39,7 +39,7 @@ const ItemEnquiries = (props) => {
     </AppLayout>
   );
 };
-export default withAuth(ItemEnquiries);
+export default ItemEnquiries;
 
 function Table({ onDelete }) {
   return (
@@ -104,7 +104,6 @@ function Table({ onDelete }) {
                 <td className="table-body-cell text-center">
                   arslanahmad@gmail.com
                 </td>
-                <td className="table-body-cell text-center">Solo Exhibition</td>
                 <td className="table-body-cell text-center">027 65 78 985</td>
                 <td className="table-body-cell text-center">
                   <span className="inline-flex gap-3">

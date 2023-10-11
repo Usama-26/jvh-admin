@@ -5,6 +5,7 @@ import { RiUserFill } from "react-icons/ri";
 import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
 import Head from "next/head";
 import { useState } from "react";
+import { MdMail, MdLock, MdPhone } from "react-icons/md";
 import Link from "next/link";
 import { loginRequest } from "../../redux/auth/auth.actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -76,7 +77,7 @@ const Login = () => {
         <title>Login | JVH Gallery Admin</title>
       </Head>
       <AuthLayout>
-        <div className="container my-10 2xl:max-w-4xl xl:max-w-3xl md:max-w-2xl sm:max-w-xl max-w-md w-full">
+        <div className="container my-10 2xl:max-w-4xl xl:max-w-3xl md:max-w-2xl sm:max-w-xl max-w-md w-full py-20">
           <Image
             src="/jvh-logo@2x.png"
             width={125}
@@ -84,50 +85,62 @@ const Login = () => {
             alt="Company Logo"
             className="mx-auto mb-4 md:mb-6"
           />
-          <h1 className="text-white text-center font-bold text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl drop-shadow-md mb-4 md:mb-6 2xl:mb-10">
-            Login
-          </h1>
+
           <div className="form-container mx-6 sm:mx-10 md:mx-20 lg:mx-24 xl:mx-36 2xl:mx-40 p-6 md:p-8 xl:p-10 mb-32 ">
             <form
-              className="mb-4 mx-2 sm:mx-5 2xl:mx-10"
+              className="mb-4 mx-2 sm:mx-5  space-y-4"
               onSubmit={(e) => handleLoginSubmit(e)}
             >
-              <div className="relative mb-4">
-                <RiUserFill className={styles["input-field-icon__left"]} />
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder="Username"
-                  className={styles["input-field"]}
-                  value={data.email}
-                  onChange={(e) => handleData("email", e.target.value)}
-                  required
-                />
+              <div className="flex w-full gap-2 items-center relative">
+                <span className="mt-2">
+                  <MdMail fill={"white"} className="w-6 h-6" />
+                </span>
+                <span className="w-full">
+                  <input
+                    type="email"
+                    className="w-full text-white py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
+                    placeholder="Email"
+                    value={data.email}
+                    onChange={(e) => handleData("email", e.target.value)}
+                    required
+                  />
+                </span>
               </div>
-              <div className="relative mb-4">
-                <IoMdLock className={styles["input-field-icon__left"]} />
-                <input
-                  type={isPasswordVisible ? "text" : "password"}
-                  name="password"
-                  id="password"
-                  placeholder="Password"
-                  className={styles["input-field"]}
-                  value={data.password}
-                  onChange={(e) => handleData("password", e.target.value)}
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                >
-                  {isPasswordVisible ? (
-                    <IoMdEyeOff className="w-6 h-6 absolute top-3 right-4" />
-                  ) : (
-                    <IoMdEye className={styles["input-field-icon__right"]} />
-                  )}
-                </button>
-              </div>
+              <span className="inline-flex w-full gap-2 items-center relative">
+                <span className="mt-2">
+                  <MdLock fill={"white"} className="w-6 h-6" />
+                </span>
+                <span className="w-full">
+                  <input
+                    type={isPasswordVisible ? "text" : "password"}
+                    className="w-full text-white py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
+                    placeholder="Password"
+                    value={data.password}
+                    onChange={(e) => handleData("password", e.target.value)}
+                    required
+                  />
+                  {/* <button className="absolute right-0">
+                    <IoMdEyeOff className="w-6 h-6 fill-white" />
+                  </button> */}
+                  <button
+                    type="button"
+                    onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                  >
+                    {isPasswordVisible ? (
+                      <IoMdEyeOff
+                        className="w-6 h-6 absolute top-3 right-4"
+                        color="white"
+                      />
+                    ) : (
+                      <IoMdEye
+                        className={styles["input-field-icon__right"]}
+                        color="white"
+                      />
+                    )}
+                  </button>
+                </span>
+              </span>
+
               <Link
                 href={"/auth/forgot_password"}
                 className="float-right text-primary clear-right mb-8 text-sm hover:underline underline-offset-2"

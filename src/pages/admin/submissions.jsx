@@ -172,16 +172,15 @@ function Submissions(props) {
   );
 }
 
-export default withAuth(Submissions);
+export default Submissions;
 
 function SubmissionCard() {
   return (
     <div className="bg-[#2D2D2D] rounded text-gray-100">
       <div className="relative m-4">
-        <Image
+        <img
           src={"/test-card-image.png"}
-          width={324}
-          height={234}
+          className="w-full"
           alt="Exhibition Image"
         />
         <button className="absolute top-2 right-2 p-1.5 rounded-full bg-[#2D2D2D]">

@@ -173,22 +173,18 @@ export default function UserManagementTable({
 
   return (
     <>
-      {(userData.role === "admin" ||
-        userData?.group?.permissions?.find(
-          (permission) => permission.route === "User Management"
-        )?.create) && (
-        <>
-          {member === "staff" && (
-            <button
-              onClick={openAddStaffModal}
-              className={`lg:px-8 lg:py-3 px-5 py-2 rounded-full mr-4 lg:mb-0 text-white lg:text-base text-sm font-medium bg-[#D32A3D] focus:outline-none float-right clear-both lg:-mt-20`}
-            >
-              <FaPlus className="inline w-4 h-4 mr-2 " />
-              Add Staff
-            </button>
-          )}
-        </>
-      )}
+      <>
+        {member === "staff" && (
+          <button
+            onClick={openAddStaffModal}
+            className={`lg:px-8 lg:py-3 px-5 py-2 rounded-full mr-4 lg:mb-0 text-white lg:text-base text-sm font-medium bg-[#D32A3D] focus:outline-none float-right clear-both lg:-mt-20`}
+          >
+            <FaPlus className="inline w-4 h-4 mr-2 " />
+            Add Staff
+          </button>
+        )}
+      </>
+
       <div className="flex justify-end gap-3 mb-2">
         <CleardataGear />
         <RefreshButton

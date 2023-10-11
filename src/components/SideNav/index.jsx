@@ -15,6 +15,7 @@ import {
   BiChevronRight,
   BiCog,
   BiSolidBarChartSquare,
+  BiImage,
 } from "react-icons/bi";
 import { BsTelephoneFill } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
@@ -31,7 +32,7 @@ const SideNav = (props) => {
 
   const styles = {
     "list-item":
-      "menu-list-item block px-10 py-3 text-sm hover:bg-[#21DDB855] font-medium ",
+      "menu-list-item block px-10 2xl:py-5 py-3 2xl:text-[18px] text-sm hover:bg-[#21DDB855] font-medium ",
     "list-item__icon": "w-5 h-5 inline stroke-white mr-2",
   };
   const getUsers1 = (page) => {
@@ -164,6 +165,17 @@ const SideNav = (props) => {
             Sales
           </Link>
         </li>
+        <li>
+          <Link
+            href="/admin/items"
+            className={`${styles["list-item"]} ${
+              router.pathname === "/admin/items" ? "bg-[#21DDB8]" : ""
+            }`}
+          >
+            <BiImage className={styles["list-item__icon"]} />
+            Items
+          </Link>
+        </li>
 
         <li>
           <Link
@@ -175,7 +187,7 @@ const SideNav = (props) => {
             <div className="relative inline-flex items-center justify-center">
               <BsTelephoneFill className={styles["list-item__icon"]} />
               <span
-                className={`w-5 h-5 text-center rounded-full absolute top-3 right-0 font-bold bg-[#21DDB8] `}
+                className={`w-5 h-5 text-center text-sm  rounded-full absolute top-3 right-0 font-bold bg-[#21DDB8] `}
               >
                 {contactCount}
               </span>
@@ -275,7 +287,7 @@ const SideNav = (props) => {
       <div className="border-t bg-[#1E1E1E] border-gray-700 sticky bottom-0 text-white">
         <Link
           href="/admin/logout"
-          className={`block px-10 py-3 text-sm text-[#21DDB8] hover:bg-gray-700`}
+          className={`block px-10 py-3 text-sm 2xl:text-[18px] text-[#21DDB8] hover:bg-gray-700`}
         >
           <FiLogOut className={"w-5 h-5 inline stroke-[#21DDB8] mr-2"} />
           Logout
@@ -284,4 +296,4 @@ const SideNav = (props) => {
     </div>
   );
 };
-export default withAuth(SideNav);
+export default SideNav;
