@@ -39,7 +39,7 @@ export default function ManageExhibitions() {
               <button className="btn-primary inline-block text-sm">
                 <span className="flex items-center gap-2">
                   <FaDownload className="w-4 h-4 inline" />
-                  <span>Manage Exhibitions</span>
+                  <span>Download</span>
                 </span>
               </button>
             </div>
@@ -135,9 +135,12 @@ function Table({ onDelete }) {
                 <td className="table-body-cell text-center">07 May 2023</td>
                 <td className="table-body-cell text-center">
                   <span className="inline-flex gap-3">
-                    <button className="p-1 rounded-full hover:bg-gray-500">
+                    <Link
+                      href={"/admin/manage/exhibitions/edit"}
+                      className="p-1 rounded-full hover:bg-gray-500"
+                    >
                       <MdEdit className="w-4 h-4" />
-                    </button>
+                    </Link>
                     <button
                       onClick={onDelete}
                       className="p-1 rounded-full hover:bg-gray-500"
@@ -168,10 +171,10 @@ function DeleteModal({ isOpen, closeModal }) {
           submissions will also be deleted.
         </p>
         <div className="flex justify-center gap-4">
-          <button className="py-2 px-8 font-medium rounded bg-[#687182]">
+          <button className="py-2 px-8 font-medium rounded  bg-[#EA0000]">
             Yes
           </button>
-          <button className="py-2 px-8 font-medium rounded bg-[#EA0000]">
+          <button className="py-2 px-8 font-medium rounded bg-[#687182]">
             No
           </button>
         </div>

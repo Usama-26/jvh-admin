@@ -3,7 +3,8 @@ import { TablePagination } from "@/components/TablePagination";
 import AppLayout from "@/layouts/AppLayout";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FaDownload } from "react-icons/fa";
+
+import { FiDownload } from "react-icons/fi";
 import { MdDelete, MdEdit } from "react-icons/md";
 
 export default function Submissions() {
@@ -11,6 +12,9 @@ export default function Submissions() {
     <AppLayout>
       <div className="max-w-screen-2xl mx-auto text-white p-4">
         <div className="bg-[#171717]">
+          <div className="py-4">
+            <h1 className="text-2xl font-semibold">Manage Submissions</h1>
+          </div>
           <div className="flex items-center justify-between text-white mb-8">
             <div>
               <SearchBar placeholder={"Search ID"} />
@@ -25,7 +29,7 @@ export default function Submissions() {
 
               <button className="btn-primary inline-block text-sm">
                 <span className="flex items-center gap-2">
-                  <FaDownload className="w-4 h-4 inline" />
+                  <FiDownload className="w-4 h-4 inline" />
                   <span>Download</span>
                 </span>
               </button>
