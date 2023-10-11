@@ -76,4 +76,4 @@ const UserManagement = (props) => {
     </AppLayout>
   );
 };
-export default withAuth(UserManagement);
+export default UserManagement;

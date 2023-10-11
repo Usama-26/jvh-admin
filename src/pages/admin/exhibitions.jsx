@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import AppLayout from "@/layouts/AppLayout";
 import { withAuth } from "@/components/Helpers/withAuth";
 import { AiFillCheckCircle } from "react-icons/ai";
@@ -34,10 +35,11 @@ function Exhibitions() {
           <div className="basis-3/12 flex-1">
             <h1 className="text-xl font-semibold">Exhibitions</h1>
           </div>
-          <div>
-            <SearchBar placeholder={"Search Exhibitions"} />
-          </div>
+
           <div className="basis-1/2 flex  justify-end gap-4 items-center font-medium">
+            <div>
+              <SearchBar placeholder={"Search Exhibitions"} />
+            </div>
             <Link
               href={"/admin/manage/exhibitions/add"}
               className="btn-primary inline-block text-sm"
@@ -69,16 +71,15 @@ function Exhibitions() {
   );
 }
 
-export default withAuth(Exhibitions);
+export default Exhibitions;
 
 function ExhibitionCard() {
   return (
     <div className="bg-[#2D2D2D] rounded text-gray-100">
       <div className="m-4">
-        <Image
+        <img
           src={"/test-card-image.png"}
-          width={324}
-          height={234}
+          className="w-full"
           alt="Exhibition Image"
         />
       </div>

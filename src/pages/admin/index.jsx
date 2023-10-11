@@ -342,4 +342,4 @@ const Admin = () => {
     </AppLayout>
   );
 };
-export default withAuth(Admin);
+export default Admin;

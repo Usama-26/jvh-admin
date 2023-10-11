@@ -31,29 +31,17 @@ const Header = (props) => {
       <div className="relative">
         <Menu>
           <Menu.Button className={"focus:outline-none"}>
-            {user?.photoUrl == "/img/placeHolder.png" ? (
-              <div className="flex gap-2 items-center text-white">
-                <span className="w-10 h-10 rounded-full bg-[#21DDB8bb] justify-center items-center inline-flex">
-                  <h1 className="font-bold text-3xl ">
-                    {user?.firstName?.charAt(0)}
-                  </h1>
-                </span>
-                <div className="text-left text-sm">
-                  <h6 className=" !font-light">Admin</h6>
-                  <h6 className=" !font-light">predragmeintjes@gmail.com</h6>
-                </div>
+            <div className="flex gap-2 items-center text-white">
+              <span className="w-10 h-10 justify-center  inline-flex">
+                <img src="/sample-user.jpg" className="rounded-full" alt="" />
+              </span>
+              <div className="text-left text-sm">
+                <h6 className=" !font-light">Admin</h6>
+                <h6 className=" !font-light">predragmeintjes@gmail.com</h6>
               </div>
-            ) : (
-              <img
-                src={user?.photoUrl}
-                width={200}
-                height={200}
-                alt="Profile Image"
-                className="object-cover w-10 h-10 rounded-full inline"
-              />
-            )}
+            </div>
           </Menu.Button>
-          <Transition
+          {/* <Transition
             as={Fragment}
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
@@ -90,10 +78,10 @@ const Header = (props) => {
                 </Menu.Item>
               </ul>
             </Menu.Items>
-          </Transition>
+          </Transition> */}
         </Menu>
       </div>
     </div>
   );
 };
-export default withAuth(Header);
+export default Header;

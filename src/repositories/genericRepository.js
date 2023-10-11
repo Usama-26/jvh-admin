@@ -1,8 +1,8 @@
 import axios from "axios";
-const baseDomain = "https://cryomadness.com/api";
-// const baseDomain = "http://localhost:4000/api";
+// const baseDomain = "https://cryomadness.com/api";
+const baseDomain = "http://localhost:4000/api";
 
-export const appName = "mrrobotdev";
+export const appName = "JVH-ADMIN";
 
 export const customHeaders = {
   Accept: "application/json",

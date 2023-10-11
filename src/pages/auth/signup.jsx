@@ -4,6 +4,7 @@ import Image from "next/image";
 import { RiUserFill } from "react-icons/ri";
 import { IoMdEye, IoMdEyeOff, IoMdLock } from "react-icons/io";
 import { MdEmail, MdPhoneEnabled } from "react-icons/md";
+import { MdMail, MdLock, MdPhone } from "react-icons/md";
 import { FaIdBadge } from "react-icons/fa";
 import Head from "next/head";
 import Link from "next/link";
@@ -157,231 +158,280 @@ export default function Signup() {
   return (
     <>
       <Head>
-        <title>Signup | Mr. Robot Dev</title>
+        <title>Signup</title>
       </Head>
 
       <AuthLayout>
         {showPage && (
-          <div className="container my-10 2xl:max-w-4xl xl:max-w-3xl md:max-w-2xl sm:max-w-xl max-w-md w-full">
-            <Image
-              src="/mrrobotdev.svg"
-              width={138}
-              height={98}
-              alt="Company Logo"
-              className="mx-auto mb-4 md:mb-6"
-            />
-            <h1 className="text-white text-center font-bold text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl drop-shadow-md mb-4 md:mb-6 2xl:mb-10">
-              Signup
-            </h1>
-            <div className="form-container mx-6 sm:mx-10 md:mx-20 lg:mx-24 xl:mx-36 2xl:mx-40 rounded-2xl shadow-md p-6 md:p-8 xl:p-10 mb-32 ">
-              <Formik
-                initialValues={{
-                  firstName: "",
-                  surName: "",
-                  phoneNo: "",
-                  email: "",
-                  confirmEmail: "",
-                  password: "",
-                  confirmPassword: "",
-                }}
-                validationSchema={userSchema}
-                onSubmit={(values) => {
-                  handleSubmitSignup(values);
-                }}
-              >
-                {({
-                  values,
-                  errors,
-                  touched,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  isSubmitting,
-                }) => (
-                  <form
-                    className="mb-4 mx-5 sm:mx-8 2xl:mx-10"
-                    onSubmit={handleSubmit}
+          <main className="w-screen h-screen bg-background-color">
+            <div className="container mx-auto flex justify-center items-center py-20">
+              <div>
+                <Image
+                  src={"/jvh-logo@2x.png"}
+                  width={125}
+                  height={105}
+                  alt="Company Logo"
+                  className="mx-auto"
+                />
+
+                <div>
+                  <Formik
+                    initialValues={{
+                      firstName: "",
+                      surName: "",
+                      phoneNo: "",
+                      email: "",
+                      confirmEmail: "",
+                      password: "",
+                      confirmPassword: "",
+                    }}
+                    validationSchema={userSchema}
+                    onSubmit={(values) => {
+                      handleSubmitSignup(values);
+                    }}
                   >
-                    <div className="relative mb-4">
-                      <RiUserFill
-                        className={styles["input-field-icon__left"]}
-                      />
-                      <input
-                        type="text"
-                        name="firstName"
-                        id="fullName"
-                        placeholder="Enter Full Name"
-                        className={styles["input-field"]}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.firstName}
-                        // onChange={(e) => handleData("firstName", e.target.value)}
-                        required
-                      />
-                      {errors.firstName && touched.firstName && (
-                        <div className="text-red-500 mt-1 ml-3 text-[13px]">
-                          {errors.firstName}
-                        </div>
-                      )}
-                    </div>
-                    <div className="relative mb-4">
-                      <RiUserFill
-                        className={styles["input-field-icon__left"]}
-                      />
-                      <input
-                        type="text"
-                        name="surName"
-                        id="surName"
-                        placeholder="Enter Last Name"
-                        className={styles["input-field"]}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.surName}
-                        // onChange={(e) => handleData("surName", e.target.value)}
-                        required
-                      />
-                      {errors.surName && touched.surName && (
-                        <div className="text-red-500 mt-1 ml-3 text-[13px]">
-                          {errors.surName}
-                        </div>
-                      )}
-                    </div>
-                    <div className="relative mb-4">
-                      <MdPhoneEnabled
-                        className={styles["input-field-icon__left"]}
-                      />
-                      <input
-                        type="text"
-                        name="phoneNo"
-                        id="phoneNo"
-                        placeholder="Enter Your Phone"
-                        className={styles["input-field"]}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.phoneNo}
-                        // onChange={(e) => handleData("phoneNo", e.target.value)}
-                        required
-                      />
-                      {errors.phoneNo && touched.phoneNo && (
-                        <div className="text-red-500 mt-1 ml-3 text-[13px]">
-                          {errors.phoneNo}
-                        </div>
-                      )}
-                    </div>
-                    <div className="relative mb-4">
-                      <MdEmail className={styles["input-field-icon__left"]} />
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Enter Email Address"
-                        className={styles["input-field"]}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.email}
-                        // onChange={(e) => handleData("email", e.target.value)}
-                        required
-                      />
-                      {errors.email && touched.email && (
-                        <div className="text-red-500 mt-1 ml-3 text-[13px]">
-                          {errors.email}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="relative mb-4">
-                      <IoMdLock className={styles["input-field-icon__left"]} />
-                      <input
-                        type={isPasswordVisible ? "text" : "password"}
-                        name="password"
-                        id="password"
-                        placeholder="Enter Your Password"
-                        className={styles["input-field"]}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password}
-                        // onChange={(e) => handleData("password", e.target.value)}
-                        required
-                      />
-                      {errors.password && touched.password && (
-                        <div className="text-red-500 mt-1 ml-3 text-[13px]">
-                          {errors.password}
-                        </div>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                    {({
+                      values,
+                      errors,
+                      touched,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      isSubmitting,
+                    }) => (
+                      <form
+                        className="lg:w-96 w-80 space-y-3 text-white mt-12"
+                        onSubmit={handleSubmit}
                       >
-                        {isPasswordVisible ? (
-                          <IoMdEyeOff className="w-6 h-6 absolute top-3 right-4" />
-                        ) : (
-                          <IoMdEye
-                            className={styles["input-field-icon__right"]}
+                        <span className="inline-flex w-full gap-2 items-center">
+                          <span className="mt-2">
+                            <MdUser width={20} height={20} fill={"white"} />
+                          </span>
+                          <input
+                            type="text"
+                            className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
+                            placeholder="First Name"
+                            name="firstName"
+                            id="fullName"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.firstName}
+                            // onChange={(e) => handleData("firstName", e.target.value)}
+                            required
                           />
+                        </span>
+                        {errors.firstName && touched.firstName && (
+                          <div className="text-red-500 mt-1 ml-6 text-[13px]">
+                            {errors.firstName}
+                          </div>
                         )}
-                      </button>
-                    </div>
-                    <div className="relative mb-4">
-                      <IoMdLock className={styles["input-field-icon__left"]} />
-                      <input
-                        type={isPasswordVisibleConfirm ? "text" : "password"}
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        placeholder="Confirm Password"
-                        className={styles["input-field"]}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.confirmPassword}
-                        onPaste={handleConfirmEmailPaste}
-                        // onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                      />
-                      {errors.confirmPassword && touched.confirmPassword && (
-                        <div className="text-red-500 mt-1 ml-3 text-[13px]">
-                          {errors.confirmPassword}
-                        </div>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setIsPasswordVisibleConfirm(!isPasswordVisibleConfirm)
-                        }
-                      >
-                        {isPasswordVisibleConfirm ? (
-                          <IoMdEyeOff className="w-6 h-6 absolute top-3 right-4" />
-                        ) : (
-                          <IoMdEye
-                            className={styles["input-field-icon__right"]}
+                        <span className="inline-flex w-full gap-2 items-center relative">
+                          <span className="mt-2">
+                            <MdUser width={20} height={20} fill={"white"} />
+                          </span>
+                          <input
+                            type="text"
+                            className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
+                            placeholder="Last Name"
+                            name="surName"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.surName}
+                            // onChange={(e) => handleData("surName", e.target.value)}
+                            required
                           />
+                        </span>
+                        {errors.surName && touched.surName && (
+                          <div className="text-red-500 mt-1 ml-6 text-[13px]">
+                            {errors.surName}
+                          </div>
                         )}
-                      </button>
-                    </div>
+                        <span className="inline-flex w-full gap-2 items-center relative">
+                          <span className="mt-2">
+                            <MdMail className="w-6 h-6" fill={"white"} />
+                          </span>
+                          <span className="mt-2 w-full">
+                            <input
+                              type="email"
+                              className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
+                              placeholder="Email"
+                              name="email"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.email}
+                              // onChange={(e) => handleData("email", e.target.value)}
+                              required
+                            />
+                            <span className="text-xs text-white">
+                              Use the email you received the invite email on
+                            </span>
+                          </span>
+                        </span>
+                        {errors.email && touched.email && (
+                          <div className="text-red-500 mt-1 ml-3 text-[13px]">
+                            {errors.email}
+                          </div>
+                        )}
+                        <span className="inline-flex w-full gap-2 items-center relative">
+                          <span className="mt-2">
+                            <MdPhone className="w-6 h-6" fill={"white"} />
+                          </span>
+                          <span className="w-full mt-2">
+                            <input
+                              type="text"
+                              className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
+                              placeholder="Phone"
+                              name="phoneNo"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.phoneNo}
+                              // onChange={(e) => handleData("phoneNo", e.target.value)}
+                              required
+                            />
+                            <span className="text-xs text-white">
+                              E.g: 0797656789
+                            </span>
+                          </span>
+                        </span>
+                        {errors.phoneNo && touched.phoneNo && (
+                          <div className="text-red-500 mt-1 ml-3 text-[13px]">
+                            {errors.phoneNo}
+                          </div>
+                        )}
+                        <span className="inline-flex w-full gap-2 items-center relative">
+                          <span className="mt-2">
+                            <MdLock className="w-6 h-6" fill={"white"} />
+                          </span>
+                          <span className="w-full">
+                            <input
+                              type={isPasswordVisible ? "text" : "password"}
+                              name="password"
+                              className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
+                              placeholder="Password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.password}
+                              // onChange={(e) => handleData("password", e.target.value)}
+                              required
+                            />
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setIsPasswordVisible(!isPasswordVisible)
+                              }
+                            >
+                              {isPasswordVisible ? (
+                                <IoMdEyeOff className="w-6 h-6 absolute top-3 right-0" />
+                              ) : (
+                                <IoMdEye
+                                  className={"w-6 h-6 absolute top-3 right-0"}
+                                />
+                              )}
+                            </button>
+                          </span>
+                        </span>
+                        {errors.password && touched.password && (
+                          <div className="text-red-500 mt-1 ml-6 text-[13px]">
+                            {errors.password}
+                          </div>
+                        )}
+                        <span className="inline-flex w-full gap-2 items-center relative">
+                          <span className="mt-2">
+                            <MdLock className="w-6 h-6" fill={"white"} />
+                          </span>
+                          <span className="w-full">
+                            <input
+                              type={
+                                isPasswordVisibleConfirm ? "text" : "password"
+                              }
+                              name="confirmPassword"
+                              id="confirmPassword"
+                              className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
+                              placeholder="Confirm Password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.confirmPassword}
+                              onPaste={handleConfirmEmailPaste}
+                              // onChange={(e) => setConfirmPassword(e.target.value)}
+                              required
+                            />
+                          </span>
+                          <button
+                            type="button"
+                            className="absolute right-0"
+                            onClick={() =>
+                              setIsPasswordVisibleConfirm(
+                                !isPasswordVisibleConfirm
+                              )
+                            }
+                          >
+                            {isPasswordVisibleConfirm ? (
+                              <IoMdEyeOff className="w-6 h-6 top-3 " />
+                            ) : (
+                              <IoMdEye className={"w-6 h-6 top-3"} />
+                            )}
+                          </button>
+                        </span>
+                        {errors.confirmPassword && touched.confirmPassword && (
+                          <div className="text-red-500 mt-1 ml-6 text-[13px]">
+                            {errors.confirmPassword}
+                          </div>
+                        )}
 
-                    <button
-                      type="submit"
-                      className="w-full text-white font-semibold py-3 rounded-full bg-[#D32A3D] hover:bg-[#D51E33]"
-                      disabled={loading}
-                    >
-                      {loading && <Spinner />}
-                      Signup
-                    </button>
-                  </form>
-                )}
-              </Formik>
-
-              <p className="text-center text-sm">
-                Already have an account?{" "}
-                <Link
-                  href={"/auth/login"}
-                  className="hover:underline text-[#D51E33]"
-                >
-                  Login
-                </Link>{" "}
-              </p>
+                        <span className="inline-flex items-center gap-4 py-2">
+                          <input
+                            type="checkbox"
+                            id="terms-and-conditions"
+                            className="w-5 h-5"
+                          />
+                          <label
+                            htmlFor="terms-and-conditions"
+                            className="text-sm"
+                          >
+                            Accept{" "}
+                            <Link href="/terms-and-conditions">
+                              Terms & Conditions
+                            </Link>
+                          </label>
+                        </span>
+                        <button className="w-full py-2 mt-2 bg-primary rounded-full uppercase tracking-widest text-white">
+                          sign up
+                        </button>
+                        <p className="text-center text-white mt-10">
+                          {"Already have an account?"}
+                          <Link
+                            href="/auth/login"
+                            className="text-primary hover:underline"
+                          >
+                            {" Log In"}
+                          </Link>
+                        </p>
+                      </form>
+                    )}
+                  </Formik>
+                </div>
+              </div>
             </div>
-          </div>
+          </main>
         )}
       </AuthLayout>
     </>
+  );
+}
+
+function MdUser({ width, height, fill }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 32 32"
+      fill={fill}
+    >
+      <path
+        d="M16 16C20.42 16 24 12.42 24 8C24 3.58 20.42 0 16 0C11.58 0 8 3.58 8 8C8 12.42 11.58 16 16 16ZM16 20C10.66 20 0 22.68 0 28V32H32V28C32 22.68 21.34 20 16 20Z"
+        fill="#F0F0F0"
+      />
+    </svg>
   );
 }
