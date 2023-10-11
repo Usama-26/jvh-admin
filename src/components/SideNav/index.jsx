@@ -229,7 +229,7 @@ const SideNav = (props) => {
               <Menu.Item as={"li"}>
                 <Link
                   className="block px-10 py-2  ml-2  text-sm hover:bg-[#21DDB855] font-medium border-l-2"
-                  href={"/admin/manage/submission"}
+                  href={"/admin/manage/submissions"}
                 >
                   Submissions
                 </Link>

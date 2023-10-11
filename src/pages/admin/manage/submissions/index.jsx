@@ -1,24 +1,19 @@
-import { TablePagination } from "@/components/TablePagination";
-import Modal from "@/components/Modal";
 import { SearchBar } from "@/components/SearchBar";
+import { TablePagination } from "@/components/TablePagination";
 import AppLayout from "@/layouts/AppLayout";
-import { FaDownload, FaPlus } from "react-icons/fa";
-import { useState } from "react";
-import { MdDelete, MdEdit } from "react-icons/md";
-import ModalOverlay from "@/components/ModalOverlay";
 import Link from "next/link";
-export default function ManageExhibitions() {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+import { useRouter } from "next/router";
+import { FaDownload } from "react-icons/fa";
+import { MdDelete, MdEdit } from "react-icons/md";
+
+export default function Submissions() {
   return (
     <AppLayout>
       <div className="max-w-screen-2xl mx-auto text-white p-4">
         <div className="bg-[#171717]">
-          <div className="py-4">
-            <h1 className="text-2xl font-semibold">Manage Exhibitions</h1>
-          </div>
           <div className="flex items-center justify-between text-white mb-8">
             <div>
-              <SearchBar placeholder={"Search by Exhibition Name"} />
+              <SearchBar placeholder={"Search ID"} />
             </div>
             <div className="basis-1/2 flex  justify-end gap-4 items-center font-medium">
               <button className="btn-danger inline-block text-sm">
@@ -27,36 +22,24 @@ export default function ManageExhibitions() {
                   <span>Delete</span>
                 </span>
               </button>
-              <Link
-                href={"/admin/manage/exhibitions/add"}
-                className="btn-primary inline-block text-sm"
-              >
-                <span className="flex items-center gap-2">
-                  <FaPlus className="w-4 h-4 inline" />
-                  <span>Add Exhibition</span>
-                </span>
-              </Link>
+
               <button className="btn-primary inline-block text-sm">
                 <span className="flex items-center gap-2">
                   <FaDownload className="w-4 h-4 inline" />
-                  <span>Manage Exhibitions</span>
+                  <span>Download</span>
                 </span>
               </button>
             </div>
           </div>
+          <Table />
         </div>
-        <Table onDelete={() => setIsDeleteModalOpen(true)} />
-        <DeleteModal
-          isOpen={isDeleteModalOpen}
-          closeModal={() => setIsDeleteModalOpen(false)}
-        />
-        <ModalOverlay isOpen={isDeleteModalOpen} />
       </div>
     </AppLayout>
   );
 }
 
 function Table({ onDelete }) {
+  const router = useRouter();
   return (
     <>
       <div className="mb-4 overflow-auto">
@@ -79,25 +62,25 @@ function Table({ onDelete }) {
                 #
               </th>
               <th scope="col" className="table-head-cell">
-                Name
+                Title
               </th>
               <th scope="col" className="table-head-cell text-center">
-                Reference
+                Username group
               </th>
               <th scope="col" className="table-head-cell text-center">
-                Category Group
+                Exhibition Group
               </th>
               <th scope="col" className="table-head-cell text-center">
-                Users
+                Price
               </th>
               <th scope="col" className="table-head-cell text-center">
-                Items
+                Medium Group
               </th>
               <th scope="col" className="table-head-cell text-center">
-                Starts
+                Size Group
               </th>
               <th scope="col" className="table-head-cell text-center">
-                Ends
+                Status
               </th>
               <th
                 scope="col"
@@ -125,25 +108,26 @@ function Table({ onDelete }) {
                     </label>
                   </div>
                 </td>
-                <td className="table-body-cell">100</td>
-                <td className="table-body-cell">Alex Shabalala Ceramics</td>
-                <td className="table-body-cell text-center">May 2023</td>
-                <td className="table-body-cell text-center">Solo Exhibition</td>
+                <td className="table-body-cell">{i + 1}</td>
+                <td className="table-body-cell">Unadorned Beauty 3</td>
+                <td className="table-body-cell text-center">John de Klerk</td>
+                <td className="table-body-cell text-center">
+                  John de Klerk Ceramic
+                </td>
                 <td className="table-body-cell text-center">2</td>
-                <td className="table-body-cell text-center">1</td>
-                <td className="table-body-cell text-center">07 May 2023</td>
-                <td className="table-body-cell text-center">07 May 2023</td>
+                <td className="table-body-cell text-center">Water colour</td>
+                <td className="table-body-cell text-center">42 x 29.5</td>
+                <td className="table-body-cell text-center text-green-600">
+                  Accepted
+                </td>
                 <td className="table-body-cell text-center">
                   <span className="inline-flex gap-3">
-                    <button className="p-1 rounded-full hover:bg-gray-500">
-                      <MdEdit className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={onDelete}
+                    <Link
+                      href={"/admin/manage/submissions/edit"}
                       className="p-1 rounded-full hover:bg-gray-500"
                     >
-                      <MdDelete className="w-4 h-4 fill-[#EA0000]" />
-                    </button>
+                      <MdEdit className="w-4 h-4" />
+                    </Link>
                   </span>
                 </td>
               </tr>
@@ -153,29 +137,5 @@ function Table({ onDelete }) {
       </div>
       <TablePagination />
     </>
-  );
-}
-
-function DeleteModal({ isOpen, closeModal }) {
-  return (
-    <Modal isOpen={isOpen} closeModal={closeModal}>
-      <div className="text-white space-y-8 p-4">
-        <h1 className="font-semibold text-2xl text-center">
-          Delete Exhibition
-        </h1>
-        <p className="text-center">
-          Are you sure you want to delete this exhibition? All linked
-          submissions will also be deleted.
-        </p>
-        <div className="flex justify-center gap-4">
-          <button className="py-2 px-8 font-medium rounded bg-[#687182]">
-            Yes
-          </button>
-          <button className="py-2 px-8 font-medium rounded bg-[#EA0000]">
-            No
-          </button>
-        </div>
-      </div>
-    </Modal>
   );
 }
