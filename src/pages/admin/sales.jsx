@@ -7,7 +7,12 @@ import ModalOverlay from "@/components/ModalOverlay";
 import AppLayout from "@/layouts/AppLayout";
 import { Dialog, Tab } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaHandHoldingMedical, FaPlus, FaUserCog } from "react-icons/fa";
+import {
+  FaDollarSign,
+  FaHandHoldingMedical,
+  FaPlus,
+  FaUserCog,
+} from "react-icons/fa";
 import { HiOutlineRefresh } from "react-icons/hi";
 import { getBlogs, addBlogs } from "@/redux/features/features.actions";
 import axios from "axios";
@@ -26,7 +31,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { AiFillCheckCircle, AiOutlineCheckCircle } from "react-icons/ai";
 import { MdBlock, MdEdit } from "react-icons/md";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import {
+  BiChevronLeft,
+  BiChevronRight,
+  BiDollar,
+  BiMoney,
+} from "react-icons/bi";
 const RichEditorWithNoSSR = dynamic(
   () => import("../../components/Generic/RichEditor"),
   {
@@ -140,7 +150,7 @@ export default function Items(props) {
             stats={5}
           />
           <StatsCard
-            icon={<AiFillCheckCircle className="w-8 h-8 fill-primary" />}
+            icon={<FaDollarSign className="w-8 h-8 fill-primary" />}
             title="Total"
             stats={"R12450"}
           />
