@@ -141,8 +141,8 @@ export default function Items(props) {
           />
           <StatsCard
             icon={<AiFillCheckCircle className="w-8 h-8 fill-primary" />}
-            title="Available"
-            stats={15}
+            title="Total"
+            stats={"R12450"}
           />
         </div>
         <div className="flex items-center justify-between text-white mb-8">
