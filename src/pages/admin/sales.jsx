@@ -147,11 +147,11 @@ export default function Items(props) {
         </div>
         <div className="flex items-center justify-between text-white mb-8">
           <div className="basis-3/12 flex-1">
-            <h1 className="text-xl font-semibold">Items</h1>
+            <h1 className="text-xl font-semibold">Sales</h1>
           </div>
           <div className="flex gap-4">
             <button className="btn-primary inline-block text-sm">
-              Transfer Items
+              Mark all as Sold
             </button>
             <SearchBar placeholder={"Search by User Name"} />
           </div>
@@ -184,8 +184,8 @@ function ItemCard() {
 
       <div className="m-4 space-y-3">
         <div className="space-y-1">
-          <h2 className="font-semibold"></h2>
-          <h4 className="text-xs">Ons Karoo - Suzanne & Isak Troskie</h4>
+          <h2 className="font-semibold">Untitled</h2>
+          <h4 className="text-xs">Emlee Suzanie Myburgh</h4>
         </div>
         <div className="space-y-1">
           <h3 className="text-sm font-semibold">Artist Name</h3>
@@ -210,8 +210,7 @@ function ItemCard() {
 
       <hr className="border-t border-gray-600" />
       <div className="m-4 flex justify-between text-xs font-medium">
-        <button className="py-1 px-2 rounded btn-gradient">Edit</button>
-        <button className="py-1 px-2 rounded btn-gradient">Available</button>
+        <button className="py-1 px-2 rounded btn-gradient">Mark as Sold</button>
       </div>
     </div>
   );
