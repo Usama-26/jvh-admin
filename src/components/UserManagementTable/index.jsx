@@ -94,7 +94,6 @@ export default function UserManagementTable({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (email === "") {
       toast.error("Please enter email", {});
     } else if (!selectedGroup) {

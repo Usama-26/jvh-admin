@@ -8,7 +8,6 @@ export const uploadImage = async (img, cb, setProgress, isFile) => {
       if (precentage < 100) setProgress(precentage);
     },
   };
-  console.log(setProgress);
   if (img != null) {
     const data = new FormData();
     data.append("file", img);

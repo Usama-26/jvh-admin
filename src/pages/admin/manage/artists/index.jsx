@@ -9,6 +9,8 @@ import ModalOverlay from "@/components/ModalOverlay";
 import Link from "next/link";
 import { FiDownload } from "react-icons/fi";
 import { IoMdEye } from "react-icons/io";
+import AuthenticationRepository from "@/repositories/AuthenticationRepository";
+import { toast } from "react-toastify";
 export default function ManageArtists() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
@@ -185,30 +187,78 @@ function EditModal({ isOpen, closeModal }) {
   );
 }
 function InviteModal({ isOpen = true, closeModal }) {
+  const [email, setEmail] = useState("");
+  const [selectedExhibition, setSelectedExhibition] = useState();
+  const [checked, setChecked] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let payload = {};
+    if (email === "") {
+      toast.error("Please enter email", {});
+    } else if (!checked) {
+      payload = {
+        Email: email,
+        exhibitions: [],
+      };
+    } else {
+      payload = {
+        Email: email,
+        exhibitions: [],
+      };
+      try {
+        const { data } = AuthenticationRepository.sendInvite(payload);
+        toast.success("User Invited Successfully", {});
+        closeModal();
+      } catch (error) {
+        toast.error("An error occured", {});
+      }
+    }
+  };
   return (
     <Modal isOpen={isOpen} closeModal={closeModal}>
       <div className="text-white space-y-8 p-4">
         <h1 className="font-semibold text-2xl text-center">Invite Artist</h1>
-        <form className="space-y-6">
-          <input type="email" className="form-input" placeholder="Email" />
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <input
+            type="email"
+            className="form-input"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
           <select className="form-input">
             <option value="exhibitions">Exhibitions</option>
           </select>
           <span className="inline-block">
-            <input type="checkbox" id="inactive" name="invite" />
+            <input
+              type="checkbox"
+              id="inactive"
+              name="invite"
+              value={checked}
+              checked={checked}
+              onChange={(e) => setChecked(e.target.checked)}
+            />
             <label htmlFor="inactive" className="ml-2 inline-block">
               Invite without exhibition
             </label>
           </span>
+          <div className="flex justify-center gap-4">
+            <button
+              className="py-2 px-8 font-medium rounded  bg-[#687182]"
+              onClick={closeModal}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="py-2 px-8 font-medium rounded btn-gradient "
+            >
+              Send
+            </button>
+          </div>
         </form>
-        <div className="flex justify-center gap-4">
-          <button className="py-2 px-8 font-medium rounded  bg-[#687182]">
-            Cancel
-          </button>
-          <button className="py-2 px-8 font-medium rounded btn-gradient ">
-            Send
-          </button>
-        </div>
       </div>
     </Modal>
   );

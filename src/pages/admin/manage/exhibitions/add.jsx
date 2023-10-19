@@ -1,4 +1,3 @@
-import Dropzone from "@/components/Dropzone";
 import ExhibitionForm from "@/components/ExhibitionForm";
 import AppLayout from "@/layouts/AppLayout";
 import { useRouter } from "next/router";
@@ -14,20 +13,6 @@ export default function AddExhibition() {
           </div>
           <div className="bg-[#2D2D2D] rounded-lg p-8">
             <ExhibitionForm />
-            <div className="py-4">
-              <Dropzone />
-            </div>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={router.back}
-                className="py-2 px-8 font-medium rounded bg-[#687182]"
-              >
-                Back
-              </button>
-              <button className="py-2 px-8 font-medium rounded btn-gradient">
-                Submit
-              </button>
-            </div>
           </div>
         </div>
       </div>

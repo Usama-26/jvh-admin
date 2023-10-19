@@ -30,8 +30,9 @@ const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [data, setData] = useState({
-    email: "",
-    password: "",
+    Email: "",
+    Password: "",
+    type: "admin",
   });
 
   const handleData = (key, value) => {
@@ -100,8 +101,8 @@ const Login = () => {
                     type="email"
                     className="w-full text-white py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
                     placeholder="Email"
-                    value={data.email}
-                    onChange={(e) => handleData("email", e.target.value)}
+                    value={data.Email}
+                    onChange={(e) => handleData("Email", e.target.value)}
                     required
                   />
                 </span>
@@ -115,8 +116,8 @@ const Login = () => {
                     type={isPasswordVisible ? "text" : "password"}
                     className="w-full text-white py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
                     placeholder="Password"
-                    value={data.password}
-                    onChange={(e) => handleData("password", e.target.value)}
+                    value={data.Password}
+                    onChange={(e) => handleData("Password", e.target.value)}
                     required
                   />
                   {/* <button className="absolute right-0">

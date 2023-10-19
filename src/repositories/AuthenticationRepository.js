@@ -2,7 +2,7 @@ import Repository, { baseUrl, getError } from "./genericRepository";
 
 const routes = {
   userRegister: "/auth/register",
-  sendInvite: "/auth/send-invite",
+  sendInvite: "/admin/invite-user",
   login: "/auth/login",
   logout: "/v1/auth/logout",
   refreshTokens: "/v1/auth/refresh-tokens",
@@ -81,21 +81,21 @@ class AuthenticationRepository {
       throw getError(error);
     }
   }
-  async getUsers(page, role, status, value, status2, value2) {
-    try {
-      const request = await Repository.get(
-        `${baseUrl}${routes.getUsers}?page=${page}&role=${role}&${status}=${value}&${status2}=${value2}`
-      );
-      const { data } = request;
+  // async getUsers(page, role, status, value, status2, value2) {
+  //   try {
+  //     const request = await Repository.get(
+  //       `${baseUrl}${routes.getUsers}?page=${page}&role=${role}&${status}=${value}&${status2}=${value2}`
+  //     );
+  //     const { data } = request;
 
-      return {
-        results: data,
-      };
-    } catch (error) {
-      console.log(error);
-      throw getError(error);
-    }
-  }
+  //     return {
+  //       results: data,
+  //     };
+  //   } catch (error) {
+  //     console.log(error);
+  //     throw getError(error);
+  //   }
+  // }
 
   async getUser(id) {
     try {
