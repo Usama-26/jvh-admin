@@ -4,39 +4,55 @@ import { sendInvite } from "@/redux/auth/auth.actions";
 import { withAuth } from "@/components/Helpers/withAuth";
 import { MdDelete } from "react-icons/md";
 import { TablePagination } from "@/components/TablePagination";
-import { IoMdEye } from "react-icons/io";
-import { FiDownload } from "react-icons/fi";
+import { FaPlus } from "react-icons/fa";
+import { SearchBar } from "@/components/SearchBar";
+import Modal from "@/components/Modal";
+import { useState } from "react";
+import ModalOverlay from "@/components/ModalOverlay";
 
-const ItemEnquiries = (props) => {
-  const userData = props.userData;
+function AdminManagement() {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isInviteModal, setIsInviteModal] = useState(false);
   return (
     <AppLayout>
-      <div className="max-w-screen-2xl mx-auto p-4 ">
-        <div className="flex items-center justify-between text-white my-8">
-          <div className="basis-3/12 flex-1">
-            <h1 className="text-xl font-semibold">Item Enquiries</h1>
-          </div>
-          <div className="basis-1/2 flex  justify-end gap-4 items-center font-medium">
-            <button className="btn-danger inline-block text-sm">
+      <div className="max-w-screen-2xl mx-auto p-4 text-white">
+        <div className="basis-3/12 flex-1">
+          <h1 className="text-xl font-semibold">Admin Management</h1>
+        </div>
+        <div className="flex items-center justify-between  my-8">
+          <SearchBar placeholder={"Search Admin"} />
+          <div className=" flex  justify-end gap-4 items-center font-medium">
+            <button
+              onClick={() => setIsInviteModal(true)}
+              className="btn-primary inline-block text-sm"
+            >
               <span className="flex items-center gap-2">
-                <MdDelete className="w-4 h-4 inline" />
-                <span>Delete</span>
+                <FaPlus className="w-4 h-4 inline" />
+                <span>Invite User</span>
               </span>
             </button>
             <button className="btn-primary inline-block text-sm">
               <span className="flex items-center gap-2">
-                <FiDownload className="w-4 h-4 inline" />
-                <span>Download</span>
+                <span>Pending Invites</span>
               </span>
             </button>
           </div>
         </div>
-        <Table />
+        <Table onDelete={() => setIsDeleteModalOpen(true)} />
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          closeModal={() => setIsDeleteModalOpen(false)}
+        />
+        <InviteModal
+          isOpen={isInviteModal}
+          closeModal={() => setIsInviteModal(false)}
+        />
+        <ModalOverlay isOpen={isDeleteModalOpen || isInviteModal} />
       </div>
     </AppLayout>
   );
-};
-export default ItemEnquiries;
+}
+export default AdminManagement;
 
 function Table({ onDelete }) {
   return (
@@ -61,15 +77,14 @@ function Table({ onDelete }) {
                 #
               </th>
               <th scope="col" className="table-head-cell">
-                FullName
+                First Name
+              </th>
+              <th scope="col" className="table-head-cell">
+                Last Name
               </th>
               <th scope="col" className="table-head-cell text-center">
                 Email
               </th>
-              <th scope="col" className="table-head-cell text-center">
-                Phone
-              </th>
-
               <th
                 scope="col"
                 className="table-head-cell text-center rounded-tr"
@@ -97,15 +112,19 @@ function Table({ onDelete }) {
                   </div>
                 </td>
                 <td className="table-body-cell">{i + 1}</td>
-                <td className="table-body-cell">Arslan Ahmad</td>
+                <td className="table-body-cell">Arslan </td>
+                <td className="table-body-cell">Ahmad</td>
                 <td className="table-body-cell text-center">
                   arslanahmad@gmail.com
                 </td>
-                <td className="table-body-cell text-center">027 65 78 985</td>
+
                 <td className="table-body-cell text-center">
                   <span className="inline-flex gap-3">
-                    <button className="p-1 rounded-full hover:bg-gray-500">
-                      <IoMdEye className="w-4 h-4" />
+                    <button
+                      onClick={onDelete}
+                      className="p-1 rounded-full hover:bg-gray-500"
+                    >
+                      <MdDelete className="w-4 h-4 fill-[#EA0000]" />
                     </button>
                   </span>
                 </td>
@@ -116,5 +135,49 @@ function Table({ onDelete }) {
       </div>
       <TablePagination />
     </>
+  );
+}
+function DeleteModal({ isOpen, closeModal }) {
+  return (
+    <Modal isOpen={isOpen} closeModal={closeModal}>
+      <div className="text-white space-y-8 p-4">
+        <h1 className="font-semibold text-2xl text-center">Delete User</h1>
+        <p className="text-center">
+          Are you sure you want to delete Michael Fredrik?
+        </p>
+        <div className="flex justify-center gap-4">
+          <button className="py-2 px-8 font-medium rounded  bg-[#EA0000]">
+            Yes
+          </button>
+          <button className="py-2 px-8 font-medium rounded bg-[#687182]">
+            No
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+}
+function InviteModal({ isOpen, closeModal }) {
+  return (
+    <Modal isOpen={isOpen} closeModal={closeModal}>
+      <div className="text-white space-y-8 p-4">
+        <h1 className="font-semibold text-2xl text-center">Invite User</h1>
+        <form>
+          <input
+            type="email"
+            className="form-input  mb-8"
+            placeholder="Email"
+          />
+          <div className="flex justify-center gap-4">
+            <button className="py-2 px-8 font-medium rounded bg-[#687182]">
+              Cancel
+            </button>
+            <button className="py-2 px-8 font-medium rounded  btn-gradient">
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </Modal>
   );
 }

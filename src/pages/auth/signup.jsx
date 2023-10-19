@@ -28,7 +28,7 @@ export default function Signup() {
   const [confirmEmail, setConfirmEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [location, setLocation] = useState();
-  const [showPage, setShowPage] = useState(true);
+  const [showPage, setShowPage] = useState(false);
   const styles = {
     "input-field":
       "w-full py-3 pl-12 border-b border-white bg-[#F2F2F2] border-gray-300 border-b bg-transparent  placeholder:text-sm text-sm",
@@ -49,7 +49,6 @@ export default function Signup() {
   });
 
   const verifyToken = async () => {
-    console.log("Token", token);
     try {
       const response = await axios.get(
         `${baseUrl}/auth/verify-email?token=${token}`
@@ -92,14 +91,14 @@ export default function Signup() {
   };
   function handleSubmitSignup(values) {
     const payload = {
-      firstName: values.firstName,
-      surName: values.surName,
-      email: values.email,
-      password: values.password,
-      phoneNo: values.phoneNo,
-      role: "staff",
-      group: group,
-      signedUpBy: "Admin",
+      FirstName: values.firstName,
+      LastName: values.LastName,
+      Username: values.email,
+      Email: values.email,
+      Location: "South Africa",
+      ContactNumber: values.phoneNo,
+      Password: values.password,
+      token: token,
     };
     setLoading(true);
     dispatch(userSignUpRequest(payload, handleLoading));

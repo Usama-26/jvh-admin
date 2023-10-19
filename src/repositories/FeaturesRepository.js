@@ -1,7 +1,10 @@
 import Repository, { baseUrl, getError } from "./genericRepository";
 
 const routes = {
-  addPricingItems: "/pricingitems",
+  addExhibitions: "/exhibitions",
+  getExhibitions: "/exhibitions",
+  submissions: "/submissions",
+  items: "/items",
   updatePricingItems: "/pricingitems",
   getPricingItems: "/pricingitems",
   getContacts: "/contactus",
@@ -11,13 +14,15 @@ const routes = {
   getStats: "/visitors-location/users",
   newsLetterData: "/newsletters",
   captcha: "/captchas",
+  getServices: "/services",
 };
 
 class FeaturesRepository {
-  async getPricingItems() {
+  async getServices(payload) {
     try {
-      const request = await Repository.get(
-        `${baseUrl}${routes.getPricingItems}`
+      const request = await Repository.post(
+        `${baseUrl}${routes.getServices}`,
+        payload
       );
       const { data } = request;
       return {
@@ -27,9 +32,11 @@ class FeaturesRepository {
       throw getError(error);
     }
   }
-  async getBlogs() {
+  async getExhibitions(number) {
     try {
-      const request = await Repository.get(`${baseUrl}${routes.getBlogs}`);
+      const request = await Repository.get(
+        `${baseUrl}${routes.getExhibitions}?page=${number}`
+      );
       const { data } = request;
       return {
         results: data,
@@ -38,10 +45,38 @@ class FeaturesRepository {
       throw getError(error);
     }
   }
-  async getNewsletterData() {
+  async getSubmissions(number) {
     try {
       const request = await Repository.get(
-        `${baseUrl}${routes.newsLetterData}?limit=1000`
+        `${baseUrl}${routes.submissions}?page=${number}`
+      );
+      const { data } = request;
+      return {
+        results: data,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+
+  async getItems(number, perPage) {
+    try {
+      const request = await Repository.get(
+        `${baseUrl}${routes.items}?page=${number}&limit=${perPage}`
+      );
+      const { data } = request;
+      return {
+        results: data,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+
+  async deleteExhibition(id) {
+    try {
+      const request = await Repository.delete(
+        `${baseUrl}${routes.getExhibitions}/${id}`
       );
       const { data } = request;
       return {
@@ -130,10 +165,52 @@ class FeaturesRepository {
       throw getError(error);
     }
   }
-  async addPricingItem(payload) {
+  async addExhibitions(payload) {
     try {
       const request = await Repository.post(
-        `${baseUrl}${routes.addPricingItems}`,
+        `${baseUrl}${routes.addExhibitions}`,
+        payload
+      );
+      const { data } = request;
+      return {
+        results: data.results,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async updateExhibitions(payload, id) {
+    try {
+      const request = await Repository.put(
+        `${baseUrl}${routes.addExhibitions}/${id}`,
+        payload
+      );
+      const { data } = request;
+      return {
+        results: data.results,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async updateSubmissions(payload, id) {
+    try {
+      const request = await Repository.put(
+        `${baseUrl}${routes.submissions}/${id}`,
+        payload
+      );
+      const { data } = request;
+      return {
+        results: data.results,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async updateItems(payload, id) {
+    try {
+      const request = await Repository.put(
+        `${baseUrl}${routes.items}/${id}`,
         payload
       );
       const { data } = request;

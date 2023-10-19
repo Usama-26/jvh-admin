@@ -127,12 +127,12 @@ const Admin = () => {
           />
         </div>
 
-        {/* <div className="flex gap-4">
+        <div className="flex gap-4">
           <div className="basis-1/2 my-4 bg-[#2D2D2D] rounded-lg p-2">
             <Chart
               series={[
                 {
-                  name: "Visited Users",
+                  name: "Total Revenue",
                   data: [
                     50, 110, 120, 140, 130, 210, 220, 300, 290, 310, 340, 400,
                   ],
@@ -149,7 +149,7 @@ const Admin = () => {
                   },
                 },
                 chart: {
-                  id: "users-visited",
+                  id: "Total Revenue",
                   background: "#2D2D2D",
                   toolbar: {
                     show: false,
@@ -178,6 +178,20 @@ const Admin = () => {
                     "Dec",
                   ],
                 },
+                yaxis: {
+                  labels: {
+                    style: {
+                      colors: "#bfbfbf", // Change the color of the y-axis labels
+                    },
+                  },
+                },
+                xaxis: {
+                  labels: {
+                    style: {
+                      colors: "#bfbfbf", // Change the color of the x-axis labels
+                    },
+                  },
+                },
               }}
             />
           </div>
@@ -194,7 +208,7 @@ const Admin = () => {
               type="bar"
               options={{
                 title: {
-                  text: "Total Revenue",
+                  text: "Total Items Sold",
                   style: {
                     fontSize: "20px",
                     fontWeight: "bold",
@@ -232,6 +246,20 @@ const Admin = () => {
                     "Dec",
                   ],
                 },
+                yaxis: {
+                  labels: {
+                    style: {
+                      colors: "#bfbfbf", // Change the color of the y-axis labels
+                    },
+                  },
+                },
+                xaxis: {
+                  labels: {
+                    style: {
+                      colors: "#bfbfbf", // Change the color of the x-axis labels
+                    },
+                  },
+                },
               }}
             />
           </div>
@@ -251,7 +279,7 @@ const Admin = () => {
               type="line"
               options={{
                 title: {
-                  text: "Total Submitted Forms",
+                  text: "Total Submitions",
                   style: {
                     fontSize: "20px",
                     fontWeight: "bold",
@@ -305,39 +333,92 @@ const Admin = () => {
                     "Dec",
                   ],
                 },
+                yaxis: {
+                  labels: {
+                    style: {
+                      colors: "#bfbfbf", // Change the color of the y-axis labels
+                    },
+                  },
+                },
+                xaxis: {
+                  labels: {
+                    style: {
+                      colors: "#bfbfbf", // Change the color of the x-axis labels
+                    },
+                  },
+                },
               }}
             />
           </div>
           <div className="my-4 p-4 bg-[#2D2D2D] rounded-lg w-full">
             <Chart
-              series={[chartData.usedPercentage, chartData.freeSpace]}
-              height={400}
-              type="pie"
+              series={[
+                {
+                  name: "Users Registered",
+                  data: [
+                    50, 110, 120, 140, 230, 210, 220, 400, 290, 310, 540, 400,
+                  ],
+                },
+              ]}
+              type="bar"
               options={{
                 title: {
-                  text: "Database",
+                  text: "Users Registered",
                   style: {
                     fontSize: "20px",
                     fontWeight: "bold",
                     color: "#FFFFFF",
                   },
                 },
-                stroke: {
-                  curve: "smooth",
-                },
                 chart: {
-                  id: "database",
+                  id: "subscribed-users",
                   background: "#2D2D2D",
                   toolbar: {
-                    show: true,
+                    show: false,
                   },
                 },
-                colors: ["#21DDB8", "#000000"],
-                labels: ["Used Storage", "Free Storage"],
+                colors: ["#21DDB8"],
+                plotOptions: {
+                  bar: { columnWidth: "50%" },
+                },
+                dataLabels: {
+                  enabled: false,
+                },
+
+                xaxis: {
+                  categories: [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec",
+                  ],
+                },
+                yaxis: {
+                  labels: {
+                    style: {
+                      colors: "#bfbfbf", // Change the color of the y-axis labels
+                    },
+                  },
+                },
+                xaxis: {
+                  labels: {
+                    style: {
+                      colors: "#bfbfbf", // Change the color of the x-axis labels
+                    },
+                  },
+                },
               }}
             />
           </div>
-        </div> */}
+        </div>
       </div>
     </AppLayout>
   );

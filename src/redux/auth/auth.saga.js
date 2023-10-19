@@ -71,7 +71,7 @@ function* loginSaga(action) {
     localStorage.setItem("IsLoggedIN", true);
     yield put(loginSuccess(_user, _tokens));
     yield put(getUserSuccess(_user));
-    socket.emit("new-staff-add", _user?.id);
+    // socket.emit("new-staff-add", _user?.id);
     Router.push("/admin");
     // toast.success("Logged in Successfully", {});
   } catch (error) {
@@ -173,30 +173,30 @@ function* contactUsSaga(action) {
   }
 }
 
-function* getUsersSaga(action) {
-  try {
-    let _user;
-    const { results } = yield call(
-      AuthService.getUsers,
-      action.page,
-      action.role,
-      action.status,
-      action.value,
-      action.status2,
-      action.value2
-    );
+// function* getUsersSaga(action) {
+//   try {
+//     let _user;
+//     const { results } = yield call(
+//       AuthService.getUsers,
+//       action.page,
+//       action.role,
+//       action.status,
+//       action.value,
+//       action.status2,
+//       action.value2
+//     );
 
-    _user = results;
-    yield put(getUsersSuccess(_user));
-  } catch (error) {
-    console.log(error);
-    toast.error(error, {});
-    yield put(getUsersSuccess([]));
-    action.callback();
-  } finally {
-    yield cancel();
-  }
-}
+//     _user = results;
+//     yield put(getUsersSuccess(_user));
+//   } catch (error) {
+//     console.log(error);
+//     toast.error(error, {});
+//     yield put(getUsersSuccess([]));
+//     action.callback();
+//   } finally {
+//     yield cancel();
+//   }
+// }
 
 function* updateUserSaga(action) {
   try {
@@ -223,7 +223,6 @@ function* updateUserSaga(action) {
 export default function* rootSaga() {
   yield all([takeEvery(actionTypes.LOGIN_REQUEST, loginSaga)]);
   yield all([takeEvery(actionTypes.SEND_INVITE, sendInviteSaga)]);
-  yield all([takeEvery(actionTypes.GET_USERS, getUsersSaga)]);
   yield all([takeEvery(actionTypes.UPDATE_USER, updateUserSaga)]);
   yield all([takeEvery(actionTypes.USER_SIGNUP_REQUEST, userSignUpSaga)]);
   yield all([takeEvery(actionTypes.LOGOUT, logOutSaga)]);

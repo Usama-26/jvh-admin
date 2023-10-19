@@ -1,7 +1,6 @@
 import AppLayout from "@/layouts/AppLayout";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { TablePagination } from "@/components/TablePagination";
-
 import { FaPlus } from "react-icons/fa";
 import Modal from "@/components/Modal";
 import { useState } from "react";

@@ -1,133 +1,53 @@
 import { Index } from "./index";
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useRef } from "react";
-import BlogCard from "@/components/BlogCard";
-import Modal from "@/components/Modal";
-import ModalOverlay from "@/components/ModalOverlay";
 import AppLayout from "@/layouts/AppLayout";
-import { Dialog, Tab } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHandHoldingMedical, FaPlus, FaUserCog } from "react-icons/fa";
-import { HiOutlineRefresh } from "react-icons/hi";
-import { getBlogs, addBlogs } from "@/redux/features/features.actions";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { withAuth } from "@/components/Helpers/withAuth";
 import Spinner from "@/components/svgs/spinner";
-import dynamic from "next/dynamic";
-import { RefreshButton } from "@/components/RefreshButton";
 import { SearchBar } from "@/components/SearchBar";
 import { logsAPI } from "@/components/LogsAPI";
-import { CleardataGear } from "@/components/CleardataGear";
 import { StatsCard } from "@/components/StatsCard";
-import { IoMdCalendar } from "react-icons/io";
 import Link from "next/link";
-import Image from "next/image";
-import { AiFillCheckCircle, AiOutlineCheckCircle } from "react-icons/ai";
+import FeaturesRepository from "@/repositories/FeaturesRepository";
+import Pagination from "@/components/pagination";
+import {
+  AiFillCheckCircle,
+  AiOutlineCheckCircle,
+  AiFillCloseCircle,
+} from "react-icons/ai";
 import { MdBlock, MdEdit } from "react-icons/md";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-const RichEditorWithNoSSR = dynamic(
-  () => import("../../components/Generic/RichEditor"),
-  {
-    ssr: false,
-  }
-);
+import Modal from "@/components/Modal";
+import ModalOverlay from "@/components/ModalOverlay";
 function Submissions(props) {
   // const userData = props.userData;
-  const [isAddBlogModal, setIsAddBlogModal] = useState(false);
-  const [modalData, setModalData] = useState(false);
-  const [imgLoading, setImgLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const blogs = useSelector(({ features }) => features.blogs);
-  const [editorText, setEditorText] = useState();
   const [search, setSearch] = useState("");
-  const [payloaddata, setPayloadData] = useState({
-    name: "",
-    description: "",
-    logo: "",
-  });
-  const [url, updateUrl] = useState();
-  const fileInputRef = useRef(null);
+  const [submissions, setSubmissions] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handleData = (key, value) => {
-    setPayloadData({ ...payloaddata, [key]: value });
-  };
   const router = useRouter();
-  const dispatch = useDispatch();
+
+  const getSubmissions = async (number) => {
+    try {
+      const { results } = await FeaturesRepository.getSubmissions(number);
+      setSubmissions(results);
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    getblogs();
+    getSubmissions(currentPage);
   }, []);
-
-  const getblogs = () => {
-    dispatch(getBlogs());
+  const handleClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    getSubmissions(pageNumber);
   };
-  function openAddBlogModal() {
-    setIsAddBlogModal(true);
-  }
-  function closeAddBlogModal() {
-    setIsAddBlogModal(false);
-  }
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    // Handle the selected file here
-    console.log(file);
-    handleUpload(file);
-  };
-
-  function handleUpload(d) {
-    const file = d;
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "mrrobotdev");
-    setImgLoading(true);
-    axios
-      .post("https://api.cloudinary.com/v1_1/mrrobotdev/image/upload", formData)
-      .then((response) => {
-        console.log("Upload success:", response.data.secure_url);
-        updateUrl(response.data.secure_url);
-        handleData("logo", response.data.secure_url);
-        setImgLoading(false);
-        // handle the successful upload, e.g. store the URL in state
-      })
-      .catch((error) => {
-        // console.error("Upload error:", error);
-        toast.error("Icon upload error, try again!!!", {});
-        setImgLoading(false);
-      });
-  }
-
-  const handleLoading = () => {
-    setLoading(false);
-    closeAddBlogModal();
-    dispatch(getBlogs());
-    updateUrl();
-    let defaultValue = {
-      name: "",
-      description: "",
-      logo: "",
-    };
-    setPayloadData(defaultValue);
-  };
-
-  const handleButtonClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleDataSubmit = (e) => {
-    e.preventDefault();
-    const htmlDesc = editorText.toString("html");
-
-    setLoading(true);
-    const payload = {
-      name: payloaddata.name,
-      description: `${htmlDesc}`,
-      logo: payloaddata.logo,
-    };
-    dispatch(addBlogs(payload, handleLoading));
-    logsAPI("added new blog.", userData);
+  const perPageShow = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    getSubmissions(pageNumber);
   };
 
   return (
@@ -159,30 +79,61 @@ function Submissions(props) {
           </div>
         </div>
         <div className="grid lg:grid-cols-3 gap-4 md:grid-cols-2 grid-cols-1">
-          <SubmissionCard />
-          <SubmissionCard />
-          <SubmissionCard />
-          <SubmissionCard />
-          <SubmissionCard />
-          <SubmissionCard />
+          {submissions?.results?.map((item) => (
+            <>
+              <SubmissionCard
+                data={item}
+                onClick={() => getSubmissions(currentPage)}
+              />
+            </>
+          ))}
         </div>
-        <Pagination />
+        <Pagination
+          currentPage={currentPage}
+          totalResults={submissions.totalResults}
+          totalPages={submissions.totalPages}
+          onPageChange={handleClick}
+          onRowsPerPageChange={perPageShow}
+        />
       </div>
     </AppLayout>
   );
 }
 
-export default Submissions;
+export default withAuth(Submissions);
 
-function SubmissionCard() {
+function SubmissionCard({ data, onClick }) {
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+  const [reason, setReason] = useState("");
+  const [isReasonModalOpen, setIsReasonModalOpen] = useState(false);
+
+  const updateStatus = async (value, id, st) => {
+    setStatus(st);
+    let payload = {
+      Status: value,
+      reason: reason,
+    };
+    console.log("Payload", payload);
+    setLoading(true);
+    try {
+      const { results } = await FeaturesRepository.updateSubmissions(
+        payload,
+        id
+      );
+      toast.success("Submission Updated Successfully", {});
+      setLoading(false);
+      onClick();
+      setIsReasonModalOpen(false);
+    } catch (error) {
+      setLoading(false);
+      toast.error(error, {});
+    }
+  };
   return (
     <div className="bg-[#2D2D2D] rounded text-gray-100">
       <div className="relative m-4">
-        <img
-          src={"/test-card-image.png"}
-          className="w-full"
-          alt="Exhibition Image"
-        />
+        <img src={data?.Thumbnail} className="w-full" alt="Submission Image" />
         <button className="absolute top-2 right-2 p-1.5 rounded-full bg-[#2D2D2D]">
           <MdEdit />
         </button>
@@ -191,67 +142,108 @@ function SubmissionCard() {
 
       <div className="m-4 space-y-3">
         <div className="space-y-1">
-          <h2 className="font-semibold"></h2>
-          <h4 className="text-xs">Ons Karoo - Suzanne & Isak Troskie</h4>
+          <h2 className="font-semibold">{data?.Name}</h2>
+          <h4 className="text-xs">{data?.Exhibition}</h4>
         </div>
         <div className="space-y-1">
-          <h3 className="text-sm font-semibold">Artist Name</h3>
-          <h4 className="text-xs">Isak and Suzanne Artworks Troskie</h4>
+          <h3 className="text-sm font-semibold">{data?.User}</h3>
+          <h4 className="text-xs">{data?.Medium}</h4>
         </div>
-        <span className="inline-flex items-center gap-2 py-1 px-4  rounded text-sm bg-[#26AA77]">
-          <AiFillCheckCircle className="w-4 h-4 " />
-          <span>Approved</span>
-        </span>
+
+        {data?.Status == 1 && (
+          <span className="inline-flex items-center gap-2 py-1 px-4  rounded text-sm bg-[#26AA77]">
+            <AiFillCheckCircle className="w-4 h-4 " />
+            <span>Pending</span>
+          </span>
+        )}
+        {data?.Status == 2 && (
+          <span className="inline-flex items-center gap-2 py-1 px-4  rounded text-sm bg-[#26AA77]">
+            <AiFillCheckCircle className="w-4 h-4 " />
+            <span>Approved</span>
+          </span>
+        )}
+        {data?.Status == 3 && (
+          <span className="inline-flex items-center gap-2 py-1 px-4  rounded text-sm bg-[#DD2C00]">
+            <AiFillCloseCircle className="w-4 h-4 " />
+            <span>Declined</span>
+          </span>
+        )}
+
         <div className="flex justify-start items-center flex-wrap gap-3 text-xs font-medium">
           <span className="inline-block py-1 px-2 rounded border">
-            Price: 7000
+            Price: {data?.Price}
           </span>
           <span className="inline-block py-1 px-2 rounded border">
-            Size: 585MM x 585MM
+            Size: {data?.Size}
           </span>
           <span className="inline-block py-1 px-2 rounded border">
-            Medium: Oil on Canvas
+            Medium: {data?.Medium}
           </span>
         </div>
       </div>
 
       <hr className="border-t border-gray-600" />
       <div className="m-4 flex justify-between text-xs font-medium">
-        <button className="py-1 px-2 rounded btn-danger">Decline</button>
-        <button className="py-1 px-2 rounded btn-gradient">Approve</button>
+        <button
+          type="button"
+          className={`py-1 px-2 rounded ${
+            data.Status != 1 ? "bg-[#88888899]" : "btn-danger"
+          }`}
+          onClick={() => {
+            setIsReasonModalOpen(true);
+          }}
+          disabled={loading || data.Status != 1}
+        >
+          {loading && status == "Decline" && <Spinner />}
+          Decline
+        </button>
+        <button
+          type="button"
+          className={`py-1 px-2 rounded ${
+            data.Status != 1 ? "bg-[#88888899]" : "btn-gradient"
+          }`}
+          onClick={() => updateStatus(2, data.id, "Approve")}
+          disabled={loading || data.Status != 1}
+        >
+          {loading && status == "Approve" && <Spinner />}
+          Approve
+        </button>
       </div>
+      <DeclineReasonModal
+        isOpen={isReasonModalOpen}
+        closeModal={() => setIsReasonModalOpen(false)}
+        onChange={(e) => setReason(e.target.value)}
+        submitForm={() => updateStatus(3, data.id, "Decline")}
+      />
+      <ModalOverlay isOpen={isReasonModalOpen} />
     </div>
   );
 }
-
-function Pagination() {
+function DeclineReasonModal({ isOpen, closeModal, onChange, submitForm }) {
   return (
-    <div className="py-2 px-4 flex justify-between items-center rounded bg-[#121212] text-xs text-gray-400">
-      <span>Showing 1 - 10 of 97</span>
-      <div className="flex items-center gap-2">
-        <select name="pageNo" id="pageNo" className="p-1 bg-[#2B2B2B] rounded ">
-          {Array.from(
-            {
-              length: 10,
-            },
-            (_, index) => (
-              <option
-                className="text-[#121212] bg-white"
-                key={index}
-                value={index + 1}
-              >
-                {index + 1}
-              </option>
-            )
-          )}
-        </select>
-        <button className=" btn-gradient p-1 rounded">
-          <BiChevronLeft className="w-4 h-4 fill-gray-700" />
-        </button>
-        <button className=" btn-gradient p-1 rounded">
-          <BiChevronRight className="w-4 h-4 fill-gray-700" />
-        </button>
+    <Modal isOpen={isOpen} closeModal={closeModal}>
+      <div className="text-white space-y-8 p-4">
+        <h1 className="font-semibold text-2xl text-center">
+          Reason of Decline Submission
+        </h1>
+        <form>
+          <textarea
+            className="w-full resize-none rounded-lg bg-[#444444] mb-8 p-2"
+            placeholder="Enter Decline Reason..."
+            rows={4}
+            onChange={onChange}
+          />
+          <div className="flex justify-center gap-4">
+            <button
+              type="button"
+              className="py-2 px-8 font-medium rounded btn-gradient"
+              onClick={submitForm}
+            >
+              Save
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+    </Modal>
   );
 }
