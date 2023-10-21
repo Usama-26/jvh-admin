@@ -9,6 +9,9 @@ import { SearchBar } from "@/components/SearchBar";
 import Modal from "@/components/Modal";
 import { useState } from "react";
 import ModalOverlay from "@/components/ModalOverlay";
+import Spinner from "@/components/svgs/spinner";
+import AuthenticationRepository from "@/repositories/AuthenticationRepository";
+import { toast } from "react-toastify";
 
 function AdminManagement() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -158,21 +161,53 @@ function DeleteModal({ isOpen, closeModal }) {
   );
 }
 function InviteModal({ isOpen, closeModal }) {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const sendAdminInvite = async (e) => {
+    e.preventDefault();
+    let payload = {
+      Email: email,
+      type: "admin",
+    };
+    setLoading(true);
+    try {
+      const { results } = await AuthenticationRepository.sendInvite(payload);
+      toast.success("Invite Sent Successfully", {});
+      setLoading(false);
+      closeModal();
+    } catch (error) {
+      toast.error(error, {});
+      setLoading(false);
+    }
+  };
   return (
     <Modal isOpen={isOpen} closeModal={closeModal}>
       <div className="text-white space-y-8 p-4">
         <h1 className="font-semibold text-2xl text-center">Invite User</h1>
-        <form>
+        <form onSubmit={sendAdminInvite}>
           <input
             type="email"
             className="form-input  mb-8"
             placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <div className="flex justify-center gap-4">
-            <button className="py-2 px-8 font-medium rounded bg-[#687182]">
+            <button
+              type="button"
+              className="py-2 px-8 font-medium rounded bg-[#687182]"
+              onClick={closeModal}
+            >
               Cancel
             </button>
-            <button className="py-2 px-8 font-medium rounded  btn-gradient">
+            <button
+              type="submit"
+              className="py-2 px-8 font-medium rounded  btn-gradient"
+              disabled={loading}
+            >
+              {loading && <Spinner />}
               Send
             </button>
           </div>

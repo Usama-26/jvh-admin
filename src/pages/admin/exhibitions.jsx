@@ -13,6 +13,7 @@ import { withAuth } from "@/components/Helpers/withAuth";
 import FeaturesRepository from "@/repositories/FeaturesRepository";
 import Pagination from "@/components/pagination";
 import moment from "moment";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 const RichEditorWithNoSSR = dynamic(
   () => import("../../components/Generic/RichEditor"),
@@ -161,7 +162,7 @@ function ExhibitionCard(props) {
             Items: {data?.Items?.length}
           </span>
           <span className="inline-block py-1 px-2 rounded border">
-            {data?.Category}
+            {data?.Category?.Name}
           </span>
         </div>
       </div>

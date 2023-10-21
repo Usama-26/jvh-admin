@@ -5,6 +5,8 @@ const routes = {
   getExhibitions: "/exhibitions",
   submissions: "/submissions",
   items: "/items",
+  inquiry: "/itemInquiry",
+  categories: "/categories",
   updatePricingItems: "/pricingitems",
   getPricingItems: "/pricingitems",
   getContacts: "/contactus",
@@ -18,11 +20,80 @@ const routes = {
 };
 
 class FeaturesRepository {
+  async addExhibitions(payload) {
+    try {
+      const request = await Repository.post(
+        `${baseUrl}${routes.addExhibitions}`,
+        payload
+      );
+      const { data } = request;
+      return {
+        results: data.results,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async updateExhibitions(payload, id) {
+    try {
+      const request = await Repository.put(
+        `${baseUrl}${routes.addExhibitions}/${id}`,
+        payload
+      );
+      const { data } = request;
+      return {
+        results: data.results,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async updateSubmissions(payload, id) {
+    try {
+      const request = await Repository.put(
+        `${baseUrl}${routes.submissions}/${id}`,
+        payload
+      );
+      const { data } = request;
+      return {
+        results: data.results,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async updateItems(payload, id) {
+    try {
+      const request = await Repository.put(
+        `${baseUrl}${routes.items}/${id}`,
+        payload
+      );
+      const { data } = request;
+      return {
+        results: data.results,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
   async getServices(payload) {
     try {
       const request = await Repository.post(
         `${baseUrl}${routes.getServices}`,
         payload
+      );
+      const { data } = request;
+      return {
+        results: data,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async getInquiry(number, perPage) {
+    try {
+      const request = await Repository.get(
+        `${baseUrl}${routes.inquiry}?page=${number}&limit=${perPage}`
       );
       const { data } = request;
       return {
@@ -40,6 +111,47 @@ class FeaturesRepository {
       const { data } = request;
       return {
         results: data,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async getCategories(number, perPage) {
+    try {
+      const request = await Repository.get(
+        `${baseUrl}${routes.categories}?page=${number}&limit=${perPage}`
+      );
+      const { data } = request;
+      return {
+        results: data,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async addCategories(payload) {
+    try {
+      const request = await Repository.post(
+        `${baseUrl}${routes.categories}`,
+        payload
+      );
+      const { data } = request;
+      return {
+        results: data.results,
+      };
+    } catch (error) {
+      throw getError(error);
+    }
+  }
+  async updateCategories(payload, id) {
+    try {
+      const request = await Repository.put(
+        `${baseUrl}${routes.categories}/${id}`,
+        payload
+      );
+      const { data } = request;
+      return {
+        results: data.results,
       };
     } catch (error) {
       throw getError(error);
@@ -165,62 +277,7 @@ class FeaturesRepository {
       throw getError(error);
     }
   }
-  async addExhibitions(payload) {
-    try {
-      const request = await Repository.post(
-        `${baseUrl}${routes.addExhibitions}`,
-        payload
-      );
-      const { data } = request;
-      return {
-        results: data.results,
-      };
-    } catch (error) {
-      throw getError(error);
-    }
-  }
-  async updateExhibitions(payload, id) {
-    try {
-      const request = await Repository.put(
-        `${baseUrl}${routes.addExhibitions}/${id}`,
-        payload
-      );
-      const { data } = request;
-      return {
-        results: data.results,
-      };
-    } catch (error) {
-      throw getError(error);
-    }
-  }
-  async updateSubmissions(payload, id) {
-    try {
-      const request = await Repository.put(
-        `${baseUrl}${routes.submissions}/${id}`,
-        payload
-      );
-      const { data } = request;
-      return {
-        results: data.results,
-      };
-    } catch (error) {
-      throw getError(error);
-    }
-  }
-  async updateItems(payload, id) {
-    try {
-      const request = await Repository.put(
-        `${baseUrl}${routes.items}/${id}`,
-        payload
-      );
-      const { data } = request;
-      return {
-        results: data.results,
-      };
-    } catch (error) {
-      throw getError(error);
-    }
-  }
+
   async updatePricingItem(payload, id) {
     try {
       const request = await Repository.put(
