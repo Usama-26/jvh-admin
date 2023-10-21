@@ -110,11 +110,18 @@ function SubmissionCard({ data, onClick }) {
 
   const updateStatus = async (value, id, st) => {
     setStatus(st);
-    let payload = {
-      Status: value,
-      reason: reason,
-    };
-    console.log("Payload", payload);
+    let payload = {};
+    if (st == "Approve") {
+      payload = {
+        Status: value,
+      };
+    } else {
+      payload = {
+        Status: value,
+        reason: reason,
+      };
+    }
+
     setLoading(true);
     try {
       const { results } = await FeaturesRepository.updateSubmissions(
@@ -143,10 +150,12 @@ function SubmissionCard({ data, onClick }) {
       <div className="m-4 space-y-3">
         <div className="space-y-1">
           <h2 className="font-semibold">{data?.Name}</h2>
-          <h4 className="text-xs">{data?.Exhibition}</h4>
+          <h4 className="text-xs">{data?.Exhibition?.Name}</h4>
         </div>
         <div className="space-y-1">
-          <h3 className="text-sm font-semibold">{data?.User}</h3>
+          <h3 className="text-sm font-semibold">
+            {data?.User?.FirstName} {data?.User?.LastName}
+          </h3>
           <h4 className="text-xs">{data?.Medium}</h4>
         </div>
 

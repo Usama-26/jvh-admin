@@ -19,40 +19,32 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 export default function Signup() {
   const router = useRouter();
-  const group = router.query.group;
   const token = router.query.token;
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPasswordVisibleConfirm, setIsPasswordVisibleConfirm] =
     useState(false);
   const [loading, setLoading] = useState(false);
-  const [confirmEmail, setConfirmEmail] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [location, setLocation] = useState();
   const [showPage, setShowPage] = useState(false);
-  const styles = {
-    "input-field":
-      "w-full py-3 pl-12 border-b border-white bg-[#F2F2F2] border-gray-300 border-b bg-transparent  placeholder:text-sm text-sm",
-    "input-field-icon__left": "w-6 h-6 absolute top-3 left-4 fill-white ",
-    "input-field-icon__right": "w-6 h-6 absolute top-3 right- fill-white",
-  };
-
+  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
-  const [data, setData] = useState({
+
+  let initialValues = {
     firstName: "",
     surName: "",
-    email: "",
+    userName: "",
     password: "",
-    phoneNo: "",
-    role: "staff",
-    group: "",
-    signedUpBy: "Admin",
-  });
+    confirmPassword: "",
+    termsAccepted: false,
+  };
+  const [data, setData] = useState(initialValues);
 
   const verifyToken = async () => {
     try {
       const response = await axios.get(
         `${baseUrl}/auth/verify-email?token=${token}`
       );
+      setEmail(response?.data?.Email);
       setShowPage(true);
     } catch (e) {
       toast.error(e?.response?.data?.message, {});
@@ -67,54 +59,39 @@ export default function Signup() {
     }
   }, [token]);
 
-  useEffect(() => {
-    getLocation();
-  }, []);
-
-  const handleData = (key, value) => {
-    setData({ ...data, [key]: value });
-  };
+  // useEffect(() => {
+  //   getLocation();
+  // }, []);
 
   const handleLoading = () => {
     setLoading(false);
-    const defaultD = {
-      firstName: "",
-      surName: "",
-      email: "",
-      password: "",
-      phoneNo: "",
-      role: "staff",
-      group: "",
-      signedUpBy: "Admin",
-    };
-    setData(defaultD);
+    setData(initialValues);
   };
   function handleSubmitSignup(values) {
     const payload = {
       FirstName: values.firstName,
-      LastName: values.LastName,
-      Username: values.email,
-      Email: values.email,
-      Location: "South Africa",
-      ContactNumber: values.phoneNo,
+      LastName: values.surName,
+      Username: values.userName,
+      Email: email,
       Password: values.password,
       token: token,
     };
+    console.log(payload);
     setLoading(true);
     dispatch(userSignUpRequest(payload, handleLoading));
   }
 
-  const getLocation = async () => {
-    try {
-      const response = await axios.get(
-        `https://geolocation-db.com/json/548bd320-00be-11ee-82dd-87424d907439`
-      );
-      console.log("Response", response.data);
-      setLocation(response);
-    } catch (e) {
-      console.log("Error Post", e);
-    }
-  };
+  // const getLocation = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://geolocation-db.com/json/548bd320-00be-11ee-82dd-87424d907439`
+  //     );
+  //     console.log("Response", response.data);
+  //     setLocation(response);
+  //   } catch (e) {
+  //     console.log("Error Post", e);
+  //   }
+  // };
 
   const handleConfirmEmailPaste = (event) => {
     event.preventDefault();
@@ -133,19 +110,17 @@ export default function Signup() {
         "Last name should only contain alphabetic characters"
       )
       .required("Last name is required"),
-    phoneNo: Yup.string()
-      .matches(/^\d+$/, "Phone number must contain only digits")
-      .required("Phone number is required"),
-    email: Yup.string()
-      .email("Invalid email")
-      .required("Email is required")
-      .matches(
-        /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
-        "Invalid domain in email"
-      ),
-    confirmEmail: Yup.string()
-      .oneOf([Yup.ref("email"), null], "Emails must match")
-      .required("Confirm email is required"),
+    userName: Yup.string().required("Username is required"),
+    // email: Yup.string()
+    //   .email("Invalid email")
+    //   .required("Email is required")
+    //   .matches(
+    //     /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+    //     "Invalid domain in email"
+    //   ),
+    // confirmEmail: Yup.string()
+    //   .oneOf([Yup.ref("email"), null], "Emails must match")
+    //   .required("Confirm email is required"),
     password: Yup.string()
       .required("Password is required")
       .min(8, "Password must be at least 8 characters")
@@ -153,11 +128,14 @@ export default function Signup() {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Confirm password is required"),
+    termsAccepted: Yup.boolean()
+      .oneOf([true], "You must accept the terms and conditions")
+      .required("You must accept the terms and conditions"),
   });
   return (
     <>
       <Head>
-        <title>Signup</title>
+        <title>Admin SignUp</title>
       </Head>
 
       <AuthLayout>
@@ -175,15 +153,7 @@ export default function Signup() {
 
                 <div>
                   <Formik
-                    initialValues={{
-                      firstName: "",
-                      surName: "",
-                      phoneNo: "",
-                      email: "",
-                      confirmEmail: "",
-                      password: "",
-                      confirmPassword: "",
-                    }}
+                    initialValues={data}
                     validationSchema={userSchema}
                     onSubmit={(values) => {
                       handleSubmitSignup(values);
@@ -211,11 +181,10 @@ export default function Signup() {
                             className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
                             placeholder="First Name"
                             name="firstName"
-                            id="fullName"
+                            id="firstName"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.firstName}
-                            // onChange={(e) => handleData("firstName", e.target.value)}
                             required
                           />
                         </span>
@@ -236,13 +205,32 @@ export default function Signup() {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.surName}
-                            // onChange={(e) => handleData("surName", e.target.value)}
                             required
                           />
                         </span>
                         {errors.surName && touched.surName && (
                           <div className="text-red-500 mt-1 ml-6 text-[13px]">
                             {errors.surName}
+                          </div>
+                        )}
+                        <span className="inline-flex w-full gap-2 items-center relative">
+                          <span className="mt-2">
+                            <MdUser width={20} height={20} fill={"white"} />
+                          </span>
+                          <input
+                            type="text"
+                            className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
+                            placeholder="Username"
+                            name="userName"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.userName}
+                            required
+                          />
+                        </span>
+                        {errors.userName && touched.userName && (
+                          <div className="text-red-500 mt-1 ml-6 text-[13px]">
+                            {errors.userName}
                           </div>
                         )}
                         <span className="inline-flex w-full gap-2 items-center relative">
@@ -255,48 +243,22 @@ export default function Signup() {
                               className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
                               placeholder="Email"
                               name="email"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.email}
-                              // onChange={(e) => handleData("email", e.target.value)}
+                              // onChange={handleChange}
+                              // onBlur={handleBlur}
+                              value={email}
                               required
+                              disabled
                             />
                             <span className="text-xs text-white">
                               Use the email you received the invite email on
                             </span>
                           </span>
                         </span>
-                        {errors.email && touched.email && (
+                        {/* {errors.email && touched.email && (
                           <div className="text-red-500 mt-1 ml-3 text-[13px]">
                             {errors.email}
                           </div>
-                        )}
-                        <span className="inline-flex w-full gap-2 items-center relative">
-                          <span className="mt-2">
-                            <MdPhone className="w-6 h-6" fill={"white"} />
-                          </span>
-                          <span className="w-full mt-2">
-                            <input
-                              type="text"
-                              className="w-full py-2 border-b bg-transparent focus:outline-none focus:border-primary border-white placeholder:text-white"
-                              placeholder="Phone"
-                              name="phoneNo"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.phoneNo}
-                              // onChange={(e) => handleData("phoneNo", e.target.value)}
-                              required
-                            />
-                            <span className="text-xs text-white">
-                              E.g: 0797656789
-                            </span>
-                          </span>
-                        </span>
-                        {errors.phoneNo && touched.phoneNo && (
-                          <div className="text-red-500 mt-1 ml-3 text-[13px]">
-                            {errors.phoneNo}
-                          </div>
-                        )}
+                        )} */}
                         <span className="inline-flex w-full gap-2 items-center relative">
                           <span className="mt-2">
                             <MdLock className="w-6 h-6" fill={"white"} />
@@ -310,7 +272,6 @@ export default function Signup() {
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values.password}
-                              // onChange={(e) => handleData("password", e.target.value)}
                               required
                             />
                             <button
@@ -351,7 +312,6 @@ export default function Signup() {
                               onBlur={handleBlur}
                               value={values.confirmPassword}
                               onPaste={handleConfirmEmailPaste}
-                              // onChange={(e) => setConfirmPassword(e.target.value)}
                               required
                             />
                           </span>
@@ -377,23 +337,35 @@ export default function Signup() {
                           </div>
                         )}
 
-                        <span className="inline-flex items-center gap-4 py-2">
+                        <div className="inline-flex items-center gap-4 py-2">
                           <input
                             type="checkbox"
-                            id="terms-and-conditions"
+                            id="termsAccepted"
                             className="w-5 h-5"
+                            name="termsAccepted"
+                            checked={values.termsAccepted}
+                            value={values.termsAccepted}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                           />
-                          <label
-                            htmlFor="terms-and-conditions"
-                            className="text-sm"
-                          >
+                          <label htmlFor="termsAccepted" className="text-sm">
                             Accept{" "}
                             <Link href="/terms-and-conditions">
                               Terms & Conditions
                             </Link>
                           </label>
-                        </span>
-                        <button className="w-full py-2 mt-2 bg-primary rounded-full uppercase tracking-widest text-white">
+                        </div>
+                        {errors.termsAccepted && touched.termsAccepted && (
+                          <div className="text-red-500 pt-0 ml-6 text-[13px]">
+                            {errors.termsAccepted}
+                          </div>
+                        )}
+                        <button
+                          type="submit"
+                          className="w-full py-2 mt-2 bg-primary rounded-full uppercase tracking-widest text-white"
+                          disabled={loading}
+                        >
+                          {loading && <Spinner />}
                           sign up
                         </button>
                         <p className="text-center text-white mt-10">

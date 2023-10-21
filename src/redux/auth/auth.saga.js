@@ -27,9 +27,9 @@ function* userSignUpSaga(action) {
     const { results } = yield call(AuthService.userRegister, action.payload);
     action.callback();
     toast.success("Success, Please Verify Your Email", {});
+    Router.push("/auth/login");
   } catch (error) {
     if (action && action.callback) {
-      console.log("Error: ", error);
       action.callback();
       toast.error(error, {});
     }
